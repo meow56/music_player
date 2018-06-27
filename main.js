@@ -8,6 +8,7 @@ function submitFiles() {
     music.push(newFiles[i]);
   }
   musicPlayed = [];
+  fileSelect.files = [];
 }
 
 function random(min, max) {
