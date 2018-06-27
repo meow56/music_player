@@ -43,7 +43,7 @@ function playMusic() {
       }
       var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       var temp = document.createElement("AUDIO");
-      temp.file = musicToPlay;
+      temp.srcObject = musicToPlay;
       temp.controls = "true";
       temp.id = "current_music";
       musicPlayed.push(musicToPlay);
@@ -63,7 +63,7 @@ function playMusic() {
       }
       var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       var temp = document.createElement("AUDIO");
-      temp.file = musicToPlay;
+      temp.srcObject = musicToPlay;
       temp.controls = "true";
       temp.id = "current_music";
       musicPlayed.push(musicToPlay);
