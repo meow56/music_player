@@ -2,13 +2,21 @@ var fileSelect = document.getElementById("file_select");
 var music = [];
 var musicPlayed = [];
 
+var fileSelect = document.getElementById("fileSelect"),
+  fileElem = document.getElementById("fileElem");
+
+fileSelect.addEventListener("click", function (e) {
+  if (fileElem) {
+    fileElem.click();
+  }
+}, false);
+
 function submitFiles() {
   var newFiles = fileSelect.files;
   for(var i = 0; i < newFiles.length; i++) {
     music.push(newFiles[i]);
   }
   musicPlayed = [];
-  fileSelect.files = [];
 }
 
 function random(min, max) {
