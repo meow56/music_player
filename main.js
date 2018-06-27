@@ -2,8 +2,7 @@ var fileSelect = document.getElementById("file_select");
 var music = [];
 var musicPlayed = [];
 
-var fileSelect = document.getElementById("fileSelect"),
-  fileElem = document.getElementById("fileElem");
+var fileElem = document.getElementById("file_elem");
 
 fileSelect.addEventListener("click", function (e) {
   if (fileElem) {
