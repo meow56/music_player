@@ -52,7 +52,7 @@ function playMusic() {
       setTimeout(playMusic, 0);
     }
   } else {
-    if(music.length !== )) {
+    if(music.length !== 0) {
       var musicTemp = music.slice();
       for(var i = 0; i < musicPlayed.length; i++) {
         for(var j = 0; j < musicTemp.length; j++) {
