@@ -52,21 +52,23 @@ function playMusic() {
       setTimeout(playMusic, 0);
     }
   } else {
-    var musicTemp = music.slice();
-    for(var i = 0; i < musicPlayed.length; i++) {
-      for(var j = 0; j < musicTemp.length; j++) {
-        if(musicPlayed[i] === musicTemp[j]) {
-          musicTemp.splice(j, 1);
+    if(music.length !== )) {
+      var musicTemp = music.slice();
+      for(var i = 0; i < musicPlayed.length; i++) {
+        for(var j = 0; j < musicTemp.length; j++) {
+          if(musicPlayed[i] === musicTemp[j]) {
+            musicTemp.splice(j, 1);
+          }
         }
       }
+      var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
+      var temp = document.createElement("AUDIO");
+      temp.file = musicToPlay;
+      temp.controls = "true";
+      temp.id = "current_music";
+      musicPlayed.push(musicToPlay);
+      document.getElementById("bod").appendChild(temp);
     }
-    var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
-    var temp = document.createElement("AUDIO");
-    temp.file = musicToPlay;
-    temp.controls = "true";
-    temp.id = "current_music";
-    musicPlayed.push(musicToPlay);
-    document.getElementById("bod").appendChild(temp);
   }
 }
 
