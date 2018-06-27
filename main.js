@@ -1,14 +1,10 @@
 var fileSelect = document.getElementById("file_select");
 var music = [];
 var musicPlayed = [];
+var setEve = true;
 
 var fileElem = document.getElementById("file_elem");
 
-fileSelect.addEventListener("click", function (e) {
-  if (fileElem) {
-    fileElem.click();
-  }
-}, false);
 
 function submitFiles() {
   var newFiles = fileSelect.files;
@@ -23,6 +19,14 @@ function random(min, max) {
 }
 
 function playMusic() {
+  if(setEve) {
+    fileSelect.addEventListener("click", function (e) {
+      if (fileElem) {
+        fileElem.click();
+      }
+    }, false);
+    setEve = false;
+  }
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
       if(musicPlayed.length === music.length) {
