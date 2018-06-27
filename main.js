@@ -47,7 +47,7 @@ function playMusic() {
       temp.controls = "true";
       temp.id = "current_music";
       musicPlayed.push(musicToPlay);
-      document.appendChild(temp);
+      document.getElementById("bod").appendChild(temp);
     } else {
       setTimeout(playMusic, 0);
     }
@@ -66,7 +66,7 @@ function playMusic() {
     temp.controls = "true";
     temp.id = "current_music";
     musicPlayed.push(musicToPlay);
-    document.appendChild(temp);
+    document.getElementById("bod").appendChild(temp);
   }
 }
 
