@@ -20,9 +20,9 @@ function random(min, max) {
 
 function playMusic() {
   if(setEve) {
-    fileSelect.addEventListener("click", function (e) {
-      if (fileElem) {
-        fileElem.click();
+    fileElem.addEventListener("click", function (e) {
+      if (fileSelect) {
+        fileSelect.click();
       }
     }, false);
     setEve = false;
