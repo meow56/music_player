@@ -17,6 +17,9 @@ function random(min, max) {
 function playMusic() {
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
+      if(musicPlayed.length === music.length) {
+        musicPlayed = [];
+      }
       document.removeChild(document.getElementById("current_music"));
       var musicTemp = music.slice();
       for(var i = 0; i < musicPlayed.length; i++) {
