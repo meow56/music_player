@@ -36,6 +36,8 @@ function playMusic() {
       temp.id = "current_music";
       musicPlayed.push(musicToPlay);
       document.appendChild(temp);
+    } else {
+      setTimeout(playMusic, 0);
     }
   }
 }
