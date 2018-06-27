@@ -30,7 +30,7 @@ function playMusic() {
           }
         }
       }
-      var musicToPlay = musicTemp[randomNumber(0, musicTemp.length - 1)];
+      var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       var temp = document.createElement("AUDIO");
       temp.file = musicToPlay;
       temp.controls = "true";
@@ -42,3 +42,5 @@ function playMusic() {
     }
   }
 }
+
+playMusic();
