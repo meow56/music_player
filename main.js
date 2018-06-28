@@ -50,6 +50,7 @@ function playMusic() {
       }
       temp.controls = "true";
       temp.id = "current_music";
+      temp.autoplay = "true";
       musicPlayed.push(musicToPlay);
       document.getElementById("bod").appendChild(temp);
       setTimeout(playMusic, 0);
@@ -75,8 +76,10 @@ function playMusic() {
       }
       temp.controls = "true";
       temp.id = "current_music";
+      temp.autoplay = "true";
       musicPlayed.push(musicToPlay);
       document.getElementById("bod").appendChild(temp);
+      setTimeout(playMusic, 0);
     } else {
       setTimeout(playMusic, 0);
     }
