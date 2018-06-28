@@ -6,7 +6,6 @@ var pastMusic = music.slice();
 
 var fileElem = document.getElementById("file_elem");
 
-
 function submitFiles() {
   var newFiles = fileSelect.files;
   for(var i = 0; i < newFiles.length; i++) {
@@ -99,3 +98,20 @@ function playMusic() {
 }
 
 playMusic();
+
+
+
+
+window.onscroll = function() {HUDStick()};
+
+var header = document.getElementById("myHeader");
+
+var sticky = header.offsetTop;
+
+function HUDStick() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
