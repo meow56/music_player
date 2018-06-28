@@ -41,7 +41,7 @@ function playMusic() {
   }
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
-      document.getElementById("bod").removeChild(document.getElementById("current_music"));
+      document.getElementById("hud").removeChild(document.getElementById("current_music"));
       if(musicPlayed.length === music.length) {
         musicPlayed = [];
       }
@@ -64,7 +64,7 @@ function playMusic() {
       temp.id = "current_music";
       temp.autoplay = "true";
       musicPlayed.push(musicToPlay);
-      document.getElementById("bod").appendChild(temp);
+      document.getElementById("hud").appendChild(temp);
       setTimeout(playMusic, 0);
     } else {
       setTimeout(playMusic, 0);
@@ -90,7 +90,7 @@ function playMusic() {
       temp.id = "current_music";
       temp.autoplay = "true";
       musicPlayed.push(musicToPlay);
-      document.getElementById("bod").appendChild(temp);
+      document.getElementById("hud").appendChild(temp);
       setTimeout(playMusic, 0);
     } else {
       setTimeout(playMusic, 0);
