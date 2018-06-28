@@ -1,3 +1,7 @@
+.hud {
+  background: #FFF;
+}
+
 .sticky {
   position: fixed;
   top: 0;
