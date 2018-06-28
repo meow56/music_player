@@ -104,7 +104,7 @@ playMusic();
 
 window.onscroll = function() {HUDStick()};
 
-var header = document.getElementById("myHeader");
+var header = document.getElementById("hud");
 
 var sticky = header.offsetTop;
 
