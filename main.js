@@ -29,7 +29,7 @@ function playMusic() {
   }
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
-      document.removeChild(document.getElementById("current_music"));
+      document.getElementById("bod").removeChild(document.getElementById("current_music"));
       if(musicPlayed.length === music.length) {
         musicPlayed = [];
       }
