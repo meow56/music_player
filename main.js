@@ -2,6 +2,7 @@ var fileSelect = document.getElementById("file_select");
 var music = [];
 var musicPlayed = [];
 var setEve = true;
+var pastMusic = music.slice();
 
 var fileElem = document.getElementById("file_elem");
 
@@ -19,6 +20,17 @@ function random(min, max) {
 }
 
 function playMusic() {
+  if(pastMusic !== music) {
+    while(document.getElementById("music_list").firstChild !== null) {
+      document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
+    }
+    for(var i = 0; i < music.length; i++) {
+      var temp2 = document.createElement("LI");
+      temp2.innerHTML = music[i].name;
+      document.getElementById("music_list").appendChild(temp2);
+    }
+    pastMusic = music.slice();
+  }
   if(setEve) {
     fileElem.addEventListener("click", function (e) {
       if (fileSelect) {
