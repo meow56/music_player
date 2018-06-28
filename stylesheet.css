@@ -1,0 +1,6 @@
+.hud {
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  z-index: 1;
+}
