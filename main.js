@@ -52,6 +52,7 @@ function playMusic() {
       temp.id = "current_music";
       musicPlayed.push(musicToPlay);
       document.getElementById("bod").appendChild(temp);
+      setTimeout(playMusic, 0);
     } else {
       setTimeout(playMusic, 0);
     }
