@@ -1,6 +1,9 @@
-.hud {
-  width: 100%;
-  height: 200px;
+.sticky {
   position: fixed;
-  z-index: 1;
+  top: 0;
+  width: 100%
+}
+
+.sticky + .main {
+  padding-top: 102px;
 }
