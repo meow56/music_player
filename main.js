@@ -7,7 +7,8 @@ var pastMusic = music.slice();
 var fileElem = document.getElementById("file_elem");
 
 if(!!localStorage.getItem("music_list")) {
-  music = localStorage.getItem("music_list");
+  var temp5 = Function("music = [" + localStorage.getItem("music_list") + "];");
+  temp5();
 }
 
 function submitFiles() {
@@ -31,9 +32,11 @@ function playMusic() {
     for(var i = 0; i < music.length; i++) {
       var temp2 = document.createElement("LI");
       var temp3 = music[i].name;
+      if(temp3 !== undefined) {
       var temp4 = temp3.split(".");
-      for(var i = 0; i < temp4.length - 1; i++) {
-        temp2.innerHTML += temp4[i];
+        for(var j = 0; j < temp4.length - 1; j++) {
+          temp2.innerHTML += temp4[i];
+        }
       }
       temp2.id = music[i].name;
       document.getElementById("music_list").appendChild(temp2);
