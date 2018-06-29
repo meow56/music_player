@@ -27,13 +27,13 @@ function playMusic() {
       var temp2 = document.createElement("LI");
       var temp3 = music[i].name;
       if(temp3 !== undefined) {
-      var temp4 = temp3.split(".");
+        var temp4 = temp3.split(".");
         for(var j = 0; j < temp4.length - 1; j++) {
           temp2.innerHTML += temp4[i];
         }
+        temp2.id = music[i].name;
+        document.getElementById("music_list").appendChild(temp2);
       }
-      temp2.id = music[i].name;
-      document.getElementById("music_list").appendChild(temp2);
     }
     pastMusic = music.slice();
   }
