@@ -78,7 +78,7 @@ function playMusic() {
       document.getElementById("hud").appendChild(temp);
       document.getElementById("hud").appendChild(document.createElement("BR"));
       var temp5 = document.createElement("PARAGRAPH");
-      var temp4 = music[i].name.split(".");
+      var temp4 = musicToPlay.name.split(".");
       temp5.id = "now_playing";
       temp5.innerHTML = "Now playing: \""
       for(var j = 0; j < temp4.length - 1; j++) {
@@ -116,7 +116,7 @@ function playMusic() {
       document.getElementById("hud").appendChild(temp);
       document.getElementById("hud").appendChild(document.createElement("BR"));
       var temp5 = document.createElement("PARAGRAPH");
-      var temp4 = music[i].name.split(".");
+      var temp4 = musicToPlay.name.split(".");
       temp5.id = "now_playing";
       temp5.innerHTML = "Now playing: \""
       for(var j = 0; j < temp4.length - 1; j++) {
