@@ -33,7 +33,7 @@ function playMusic() {
           temp2.textContent += temp4[j];
         }
         temp6.id = music[i].name;
-        temp2.onclick = Function("actualPlayMusic(" + temp3+ ")");
+        temp2.onclick = function (){ actualPlayMusic(temp3) };
         temp2.class = "trackSelect";
         temp6.appendChild(temp2);
         document.getElementById("music_list").appendChild(temp6);
