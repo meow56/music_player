@@ -45,7 +45,8 @@ function playMusic() {
             }
           }
         };
-        temp2.class = "trackSelect";
+        temp2.style.background = "#FFF";
+        temp2.style.border = "none";
         temp6.appendChild(temp2);
         document.getElementById("music_list").appendChild(temp6);
       }
