@@ -51,6 +51,7 @@ function playMusic() {
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
       document.getElementById("hud").removeChild(document.getElementById("current_music"));
+      document.getElementById("hud").removeChild(document.getElementById("now_playing"));
       if(musicPlayed.length === music.length) {
         musicPlayed = [];
       }
@@ -78,6 +79,7 @@ function playMusic() {
       document.getElementById("hud").appendChild(document.createElement("BR"));
       var temp5 = document.createElement("PARAGRAPH");
       var temp4 = music[i].name.split(".");
+      temp5.id = "now_playing";
       temp5.innerHTML = "Now playing: \""
       for(var j = 0; j < temp4.length - 1; j++) {
         temp5.innerHTML += temp4[j];
@@ -115,6 +117,7 @@ function playMusic() {
       document.getElementById("hud").appendChild(document.createElement("BR"));
       var temp5 = document.createElement("PARAGRAPH");
       var temp4 = music[i].name.split(".");
+      temp5.id = "now_playing";
       temp5.innerHTML = "Now playing: \""
       for(var j = 0; j < temp4.length - 1; j++) {
         temp5.innerHTML += temp4[j];
