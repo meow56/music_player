@@ -19,7 +19,7 @@ function random(min, max) {
 }
 
 function playMusic() {
-  if(pastMusic !== music) {
+  if(pastMusic.length !== music.length) {
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
     }
