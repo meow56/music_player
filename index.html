@@ -4,9 +4,9 @@
 </head>
 <body id="bod">
   <div id="hud" class="hud">
-    <input id="file_select" type="file" multiple accept="audio/*" style="display:none">
+    <input id="file_select" type="file" multiple accept="audio/*" style="display:none" onchange="submitFiles()">
     <button id="file_elem">
-      Choose some files
+      Add Music
     </button>
     <button onclick="submitFiles()">
       Add to List
