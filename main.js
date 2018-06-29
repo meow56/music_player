@@ -93,8 +93,10 @@ function playMusic() {
 playMusic();
 
 function actualPlayMusic(musicToPlay) {
-  document.getElementById("hud").removeChild(document.getElementById("current_music"));
-  document.getElementById("hud").removeChild(document.getElementById("now_playing"));
+  if(document.getElementById("current_music") !== null) {
+    document.getElementById("hud").removeChild(document.getElementById("current_music"));
+    document.getElementById("hud").removeChild(document.getElementById("now_playing"));
+  }
   var temp = document.createElement("AUDIO");
   try {
     temp.srcObject = musicToPlay;
