@@ -30,7 +30,7 @@ function playMusic() {
         var temp2 = document.createElement("BUTTON");
         var temp4 = temp3.split(".");
         for(var j = 0; j < temp4.length - 1; j++) {
-          temp2.innerHTML += temp4[j];
+          temp2.textContent += temp4[j];
         }
         temp6.id = music[i].name;
         temp2.onclick = Function("actualPlayMusic(" + music[i] + ")");
