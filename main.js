@@ -34,7 +34,7 @@ function playMusic() {
         }
         temp6.id = music[i].name;
         temp2.onclick = "actualPlayMusic(" + music[i] + ")";
-        temp2.class = "track_select";
+        temp2.class = "trackSelect";
         temp6.appendChild(temp2);
         document.getElementById("music_list").appendChild(temp6);
       }
