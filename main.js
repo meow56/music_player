@@ -6,11 +6,6 @@ var pastMusic = music.slice();
 
 var fileElem = document.getElementById("file_elem");
 
-if(!!localStorage.getItem("music_list")) {
-  var temp5 = Function("music = [" + localStorage.getItem("music_list") + "];");
-  temp5();
-}
-
 function submitFiles() {
   var newFiles = fileSelect.files;
   for(var i = 0; i < newFiles.length; i++) {
@@ -25,7 +20,6 @@ function random(min, max) {
 
 function playMusic() {
   if(pastMusic !== music) {
-    localStorage.setItem("music_list", music);
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
     }
