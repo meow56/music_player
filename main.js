@@ -37,6 +37,9 @@ function playMusic() {
     }
     pastMusic = music.slice();
   }
+  
+  
+  
   if(setEve) {
     fileElem.addEventListener("click", function (e) {
       if (fileSelect) {
@@ -74,7 +77,12 @@ function playMusic() {
       document.getElementById("hud").appendChild(temp);
       document.getElementById("hud").appendChild(document.createElement("BR"));
       var temp5 = document.createElement("PARAGRAPH");
-      temp5.innerHTML = "Now playing: \"" + musicToPlay.name + "\"";
+      var temp4 = music[i].name.split(".");
+      temp5.innerHTML = "Now playing: \""
+      for(var j = 0; j < temp4.length - 1; j++) {
+        temp5.innerHTML += temp4[j];
+      }
+      temp5.innerHTML += "\"";
       temp5.textAlign = "center";
       document.getElementById("hud").appendChild(temp5);
       setTimeout(playMusic, 0);
@@ -106,7 +114,13 @@ function playMusic() {
       document.getElementById("hud").appendChild(temp);
       document.getElementById("hud").appendChild(document.createElement("BR"));
       var temp5 = document.createElement("PARAGRAPH");
-      temp5.innerHTML = "Now playing: \"" + musicToPlay.name + "\"";
+      var temp4 = music[i].name.split(".");
+      temp5.innerHTML = "Now playing: \""
+      for(var j = 0; j < temp4.length - 1; j++) {
+        temp5.innerHTML += temp4[j];
+      }
+      temp5.innerHTML += "\"";
+      temp5.textAlign = "center";
       temp5.textAlign = "center";
       document.getElementById("hud").appendChild(temp5);
       setTimeout(playMusic, 0);
