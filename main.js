@@ -6,6 +6,10 @@ var pastMusic = music.slice();
 
 var fileElem = document.getElementById("file_elem");
 
+if(!!localStorage.getItem("music_list")) {
+  music = localStorage.getItem("music_list");
+}
+
 function submitFiles() {
   var newFiles = fileSelect.files;
   for(var i = 0; i < newFiles.length; i++) {
@@ -20,12 +24,18 @@ function random(min, max) {
 
 function playMusic() {
   if(pastMusic !== music) {
+    localStorage.setItem("music_list", music);
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
     }
     for(var i = 0; i < music.length; i++) {
       var temp2 = document.createElement("LI");
-      temp2.innerHTML = music[i].name;
+      var temp3 = music[i].name;
+      var temp4 = temp3.split(".");
+      for(var i = 0; i < temp4.length - 1; i++) {
+        temp2.innerHTML += temp4[i];
+      }
+      temp2.id = music[i].name;
       document.getElementById("music_list").appendChild(temp2);
     }
     pastMusic = music.slice();
