@@ -106,6 +106,7 @@ playMusic();
 function actualPlayMusic(musicToPlay) {
   if(document.getElementById("current_music") !== null) {
     document.getElementById("hud").removeChild(document.getElementById("current_music"));
+    document.getElementById("hud").removeChild(document.getElementById("break_hud"));
     document.getElementById("hud").removeChild(document.getElementById("now_playing"));
   }
   var temp = document.createElement("AUDIO");
@@ -120,7 +121,9 @@ function actualPlayMusic(musicToPlay) {
   temp.textAlign = "center";
   musicPlayed.push(musicToPlay);
   document.getElementById("hud").appendChild(temp);
-  document.getElementById("hud").appendChild(document.createElement("BR"));
+  var temp6 = document.createElement("BR");
+  temp6.id = "break_hud"
+  document.getElementById("hud").appendChild(temp6);
   var temp5 = document.createElement("PARAGRAPH");
   var temp4 = musicToPlay.name.split(".");
   temp5.id = "now_playing";
