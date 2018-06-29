@@ -16,3 +16,8 @@ body {
 .sticky + .main {
   padding-top: 102px;
 }
+
+.track_select {
+  background: #FFF;
+  border: none;
+}
