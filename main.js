@@ -24,16 +24,16 @@ function playMusic() {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
     }
     for(var i = 0; i < music.length; i++) {
-      var temp6 = document.createElement("LI");
-      var temp2 = document.createElement("BUTTON");
       var temp3 = music[i].name;
       if(temp3 !== undefined) {
+        var temp6 = document.createElement("LI");
+        var temp2 = document.createElement("BUTTON");
         var temp4 = temp3.split(".");
         for(var j = 0; j < temp4.length - 1; j++) {
           temp2.innerHTML += temp4[j];
         }
         temp6.id = music[i].name;
-        temp2.onclick = new Function("actualPlayMusic(" + music[i] + ")");
+        temp2.onclick = Function("actualPlayMusic(" + music[i] + ")");
         temp2.class = "trackSelect";
         temp6.appendChild(temp2);
         document.getElementById("music_list").appendChild(temp6);
