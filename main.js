@@ -33,7 +33,18 @@ function playMusic() {
           temp2.textContent += temp4[j];
         }
         temp6.id = music[i].name;
-        temp2.onclick = function (){ actualPlayMusic(temp3) };
+        temp2.onclick = function () {
+          for(var i = 0; i < music.length; i++) {
+            var temp = music[i].name.split(".");
+            var temp2 = "";
+            for(var j = 0; j < temp.length - 1; j++) {
+              temp2 += temp[j];
+            }
+            if(temp2 === this.textContent) {
+              actualPlayMusic(music[i]);
+            }
+          }
+        };
         temp2.class = "trackSelect";
         temp6.appendChild(temp2);
         document.getElementById("music_list").appendChild(temp6);
