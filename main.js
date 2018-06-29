@@ -24,15 +24,19 @@ function playMusic() {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
     }
     for(var i = 0; i < music.length; i++) {
-      var temp2 = document.createElement("LI");
+      var temp6 = document.createElement("LI");
+      var temp2 = document.createElement("BUTTON");
       var temp3 = music[i].name;
       if(temp3 !== undefined) {
         var temp4 = temp3.split(".");
         for(var j = 0; j < temp4.length - 1; j++) {
           temp2.innerHTML += temp4[j];
         }
-        temp2.id = music[i].name;
-        document.getElementById("music_list").appendChild(temp2);
+        temp6.id = music[i].name;
+        temp2.onclick = "actualPlayMusic(" + music[i] + ")";
+        temp2.class = "track_select";
+        temp6.appendChild(temp2);
+        document.getElementById("music_list").appendChild(temp6);
       }
     }
     pastMusic = music.slice();
@@ -50,8 +54,6 @@ function playMusic() {
   }
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
-      document.getElementById("hud").removeChild(document.getElementById("current_music"));
-      document.getElementById("hud").removeChild(document.getElementById("now_playing"));
       if(musicPlayed.length === music.length) {
         musicPlayed = [];
       }
@@ -64,29 +66,7 @@ function playMusic() {
         }
       }
       var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
-      var temp = document.createElement("AUDIO");
-      try {
-        temp.srcObject = musicToPlay;
-      } catch (error) {
-        temp.src = URL.createObjectURL(musicToPlay);
-      }
-      temp.controls = "true";
-      temp.id = "current_music";
-      temp.autoplay = "true";
-      temp.textAlign = "center";
-      musicPlayed.push(musicToPlay);
-      document.getElementById("hud").appendChild(temp);
-      document.getElementById("hud").appendChild(document.createElement("BR"));
-      var temp5 = document.createElement("PARAGRAPH");
-      var temp4 = musicToPlay.name.split(".");
-      temp5.id = "now_playing";
-      temp5.innerHTML = "Now playing: \""
-      for(var j = 0; j < temp4.length - 1; j++) {
-        temp5.innerHTML += temp4[j];
-      }
-      temp5.innerHTML += "\"";
-      temp5.textAlign = "center";
-      document.getElementById("hud").appendChild(temp5);
+      actualPlayMusic(musicToPlay);
       setTimeout(playMusic, 0);
     } else {
       setTimeout(playMusic, 0);
@@ -102,30 +82,7 @@ function playMusic() {
         }
       }
       var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
-      var temp = document.createElement("AUDIO");
-      try {
-        temp.srcObject = musicToPlay;
-      } catch (error) {
-        temp.src = URL.createObjectURL(musicToPlay);
-      }
-      temp.controls = "true";
-      temp.id = "current_music";
-      temp.autoplay = "true";
-      temp.textAlign = "center";
-      musicPlayed.push(musicToPlay);
-      document.getElementById("hud").appendChild(temp);
-      document.getElementById("hud").appendChild(document.createElement("BR"));
-      var temp5 = document.createElement("PARAGRAPH");
-      var temp4 = musicToPlay.name.split(".");
-      temp5.id = "now_playing";
-      temp5.innerHTML = "Now playing: \""
-      for(var j = 0; j < temp4.length - 1; j++) {
-        temp5.innerHTML += temp4[j];
-      }
-      temp5.innerHTML += "\"";
-      temp5.textAlign = "center";
-      temp5.textAlign = "center";
-      document.getElementById("hud").appendChild(temp5);
+      actualPlayMusic(musicToPlay);
       setTimeout(playMusic, 0);
     } else {
       setTimeout(playMusic, 0);
@@ -134,6 +91,35 @@ function playMusic() {
 }
 
 playMusic();
+
+function actualPlayMusic(musicToPlay) {
+  document.getElementById("hud").removeChild(document.getElementById("current_music"));
+  document.getElementById("hud").removeChild(document.getElementById("now_playing"));
+  var temp = document.createElement("AUDIO");
+  try {
+    temp.srcObject = musicToPlay;
+  } catch (error) {
+    temp.src = URL.createObjectURL(musicToPlay);
+  }
+  temp.controls = "true";
+  temp.id = "current_music";
+  temp.autoplay = "true";
+  temp.textAlign = "center";
+  musicPlayed.push(musicToPlay);
+  document.getElementById("hud").appendChild(temp);
+  document.getElementById("hud").appendChild(document.createElement("BR"));
+  var temp5 = document.createElement("PARAGRAPH");
+  var temp4 = musicToPlay.name.split(".");
+  temp5.id = "now_playing";
+  temp5.innerHTML = "Now playing: \""
+  for(var j = 0; j < temp4.length - 1; j++) {
+    temp5.innerHTML += temp4[j];
+  }
+  temp5.innerHTML += "\"";
+  temp5.textAlign = "center";
+  document.getElementById("hud").appendChild(temp5);
+}
+
 
 
 
