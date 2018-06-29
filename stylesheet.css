@@ -1,11 +1,12 @@
 .hud {
   background: #FFF;
+  text-align: center;
 }
 
 .sticky {
   position: fixed;
   top: 0;
-  width: 100%
+  width: 100%;
 }
 
 .sticky + .main {
