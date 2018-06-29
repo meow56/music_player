@@ -103,8 +103,16 @@ function playMusic() {
       temp.controls = "true";
       temp.id = "current_music";
       temp.autoplay = "true";
+      temp.margin = "auto";
+      temp.textAlign = "center";
       musicPlayed.push(musicToPlay);
       document.getElementById("hud").appendChild(temp);
+      document.getElementById("hud").appendChild(document.createElement("BR"));
+      var temp5 = document.createElement("PARAGRAPH");
+      temp5.innerHTML = "Now playing: \"" + musicToPlay.name + "\"";
+      temp5.margin = "auto";
+      temp5.textAlign = "center";
+      document.getElementById("hud").appendChild(temp5);
       setTimeout(playMusic, 0);
     } else {
       setTimeout(playMusic, 0);
