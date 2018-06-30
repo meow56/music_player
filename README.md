@@ -1,2 +1,3 @@
-# music_player
-Playing music with shuffle doing what I want
+# Music Player
+It plays music.
+Site: https://meow56.github.io/music_player/
