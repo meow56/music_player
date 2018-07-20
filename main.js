@@ -157,8 +157,8 @@ function playPause() {
         document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
       }
       var temp = document.createElement("IMG");
-      temp.src = "images/pause.png";
-      temp.alt = "Pause";
+      temp.src = "images/play.png";
+      temp.alt = "Play";
       temp.width = 25;
       temp.height = 25;
       document.getElementById("play_button").appendChild(temp);
