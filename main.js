@@ -142,7 +142,9 @@ function playPause() {
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").paused) {
       document.getElementById("current_music").play();
-      document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
+      while(document.getElementById("play_button").firstChild !== null) {
+        document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
+      }
       var temp = document.createElement("IMG");
       temp.src = "images/pause.png";
       temp.alt = "Pause";
@@ -151,12 +153,14 @@ function playPause() {
       document.getElementById("play_button").appendChild(temp);
     } else {
       document.getElementById("current_music").pause();
-      document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
+      while(document.getElementById("play_button").firstChild !== null) {
+        document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
+      }
       var temp = document.createElement("IMG");
-      temp.src = "images/play.png";
-      temp.alt = "Play";
-      temp.width = "25px";
-      temp.height = "25px";
+      temp.src = "images/pause.png";
+      temp.alt = "Pause";
+      temp.width = 25;
+      temp.height = 25;
       document.getElementById("play_button").appendChild(temp);
     }
   }
