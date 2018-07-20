@@ -146,8 +146,8 @@ function playPause() {
       var temp = document.createElement("IMG");
       temp.src = "images/pause.png";
       temp.alt = "Pause";
-      temp.width = "25px";
-      temp.height = "25px";
+      temp.width = 25;
+      temp.height = 25;
       document.getElementById("play_button").appendChild(temp);
     } else {
       document.getElementById("current_music").pause();
