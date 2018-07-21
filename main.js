@@ -166,7 +166,9 @@ function playPause() {
   }
 }
 
-
+function timeSeek() {
+  
+}
 
 window.onscroll = function() {HUDStick()};
 
