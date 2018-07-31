@@ -136,6 +136,8 @@ function actualPlayMusic(musicToPlay) {
   temp5.innerHTML += "\"";
   temp5.textAlign = "center";
   document.getElementById("hud").appendChild(temp5);
+  document.getElementById("time_seek").min = 0;
+  document.getElementById("time_seek").max = musicToPlay.duration;
 }
 
 function playPause() {
@@ -168,6 +170,11 @@ function playPause() {
 
 function timeSeek() {
   
+}
+
+function updateHead() {
+  document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
+  setTimeout(updateHead, 0);
 }
 
 window.onscroll = function() {HUDStick()};
