@@ -170,14 +170,17 @@ function playPause() {
 }
 
 function timeSeek() {
-  
+  if(document.getElementById("current_music") !== null) {
+    document.getElementById("current_music").currentTime = document.getElementById("time_seek").value;
+  }
 }
 
 function updateHead() {
   if(document.getElementById("current_music") !== null) {
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
-    setTimeout(updateHead, 0);
   }
+  timeSeek();
+  setTimeout(updateHead, 0);
 }
 
 window.onscroll = function() {HUDStick()};
