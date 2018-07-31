@@ -104,6 +104,7 @@ function playMusic() {
 }
 
 playMusic();
+updateHead();
 
 function actualPlayMusic(musicToPlay) {
   if(document.getElementById("current_music") !== null) {
@@ -173,8 +174,10 @@ function timeSeek() {
 }
 
 function updateHead() {
-  document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
-  setTimeout(updateHead, 0);
+  if(document.getElementById("current_music") !== null) {
+    document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
+    setTimeout(updateHead, 0);
+  }
 }
 
 window.onscroll = function() {HUDStick()};
