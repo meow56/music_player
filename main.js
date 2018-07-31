@@ -138,7 +138,6 @@ function actualPlayMusic(musicToPlay) {
   temp5.textAlign = "center";
   document.getElementById("hud").appendChild(temp5);
   document.getElementById("time_seek").min = 0;
-  document.getElementById("time_seek").max = temp.duration;
 }
 
 function playPause() {
@@ -177,6 +176,7 @@ function timeSeek() {
 
 function updateHead() {
   if(document.getElementById("current_music") !== null) {
+    document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
   }
   timeSeek();
