@@ -138,7 +138,7 @@ function actualPlayMusic(musicToPlay) {
   temp5.textAlign = "center";
   document.getElementById("hud").appendChild(temp5);
   document.getElementById("time_seek").min = 0;
-  document.getElementById("time_seek").max = musicToPlay.duration;
+  document.getElementById("time_seek").max = temp.duration;
 }
 
 function playPause() {
