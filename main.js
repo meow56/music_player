@@ -180,7 +180,7 @@ function updateHead() {
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
   }
   timeSeek();
-  setTimeout(updateHead, 0);
+  setTimeout(updateHead, 1);
 }
 
 window.onscroll = function() {HUDStick()};
