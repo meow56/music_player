@@ -232,6 +232,8 @@ function skipBack() {
     skipBackIndex--;
     if(musicPlayed[temp + skipBackIndex] !== null) {
       actualPlayMusic(musicPlayed[temp + skipBackIndex]);
+    } else {
+      skipBackIndex++;
     }
   }
 }
