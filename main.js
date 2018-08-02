@@ -6,6 +6,7 @@ var pastMusic = music.slice();
 var shuffle = true;
 var currentIndex = 0;
 var pastShuffle = true;
+var skipBack = 0;
 
 var fileElem = document.getElementById("file_elem");
 
@@ -209,6 +210,16 @@ function updateThings() {
   }
   pastShuffle = shuffle;
   setTimeout(updateThings, 0);
+}
+
+function skipBack() {
+  if(musicPlayed.length !== 0) {
+    var temp = musicPlayed.length - 1;
+    skipBack--;
+    if(musicPlayed[temp + skipBack] !== null) {
+      actualPlayMusic(musicPlayed[temp + skipBack]);
+    }
+  }
 }
 
 document.getElementById("time_seek").oninput = function() {
