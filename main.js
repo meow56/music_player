@@ -104,7 +104,7 @@ function playMusic() {
 }
 
 playMusic();
-//updateHead();
+updateHead();
 
 function actualPlayMusic(musicToPlay) {
   if(document.getElementById("current_music") !== null) {
@@ -137,7 +137,7 @@ function actualPlayMusic(musicToPlay) {
   temp5.innerHTML += "\"";
   temp5.textAlign = "center";
   document.getElementById("hud").appendChild(temp5);
- // document.getElementById("time_seek").min = 0;
+  document.getElementById("time_seek").min = 0;
 }
 
 function playPause() {
