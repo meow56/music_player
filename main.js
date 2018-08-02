@@ -147,7 +147,7 @@ function actualPlayMusic(musicToPlay) {
   temp.id = "current_music";
   temp.autoplay = "true";
   temp.textAlign = "center";
-  if(pausing = true) {
+  if(pausing === true) {
     temp.pause();
   }
   musicPlayed.push(musicToPlay);
