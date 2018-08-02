@@ -83,7 +83,10 @@ function playMusic() {
       if(shuffle) {
         var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       } else {
-        var musicToPlay = musicTemp[currentIndex++];
+        var musicToPlay = music[currentIndex++];
+        if(currentIndex >= music.length) {
+          currentIndex = 0;
+        }
       }
       actualPlayMusic(musicToPlay);
       setTimeout(playMusic, 0);
@@ -190,15 +193,15 @@ function updateThings() {
     }
     if(shuffle) {
       var temp = document.createElement("IMG");
-      temp.src = "images/no shuffle.png";
-      temp.alt = "Turn off shuffle";
+      temp.src = "images/shuffle.png";
+      temp.alt = "Shuffle on";
       temp.width = 25;
       temp.height = 25;
       document.getElementById("shuffle").appendChild(temp);
     } else {
       var temp = document.createElement("IMG");
-      temp.src = "images/shuffle.png";
-      temp.alt = "Turn on shuffle";
+      temp.src = "images/no shuffle.png";
+      temp.alt = "Shuffle off";
       temp.width = 25;
       temp.height = 25;
       document.getElementById("shuffle").appendChild(temp);
