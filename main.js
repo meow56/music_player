@@ -81,7 +81,10 @@ function playMusic() {
           }
         }
       }
-      if(shuffle) {
+      if(skipBackIndex !== 0) {
+        skipBackIndex++;
+        var musicToPlay = musicPlayed[musicPlayed.length - 1 + skipBackIndex];
+      } else if(shuffle) {
         var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       } else {
         var musicToPlay = music[currentIndex++];
@@ -104,10 +107,16 @@ function playMusic() {
           }
         }
       }
-      if(shuffle) {
+      if(skipBackIndex !== 0) {
+        skipBackIndex++;
+        var musicToPlay = musicPlayed[musicPlayed.length - 1 + skipBackIndex];
+      } else if(shuffle) {
         var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       } else {
-        var musicToPlay = musicTemp[currentIndex++];
+        var musicToPlay = music[currentIndex++];
+        if(currentIndex >= music.length) {
+          currentIndex = 0;
+        }
       }
       actualPlayMusic(musicToPlay);
       setTimeout(playMusic, 0);
