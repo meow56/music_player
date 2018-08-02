@@ -168,9 +168,9 @@ function playPause() {
   }
 }
 
-function timeSeek() {
+document.getElementById("time_seek").oninput = function() {
   if(document.getElementById("current_music") !== null) {
-    document.getElementById("current_music").currentTime = document.getElementById("time_seek").value;
+    document.getElementById("current_music").currentTime = this.value;
   }
 }
 
@@ -179,7 +179,6 @@ function updateHead() {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
   }
-  timeSeek();
   setTimeout(updateHead, 1);
 }
 
