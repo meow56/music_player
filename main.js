@@ -74,7 +74,7 @@ function playMusic() {
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
       pausing = document.getElementById("current_music").paused;
-      inThePast = (skipBackIndex === 0);
+      inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length === music.length) {
         musicPlayed = [];
       }
