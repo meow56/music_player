@@ -179,7 +179,7 @@ function updateHead() {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
   }
-  setTimeout(updateHead, 1);
+  setTimeout(updateHead, 0);
 }
 
 window.onscroll = function() {HUDStick()};
