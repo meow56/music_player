@@ -174,6 +174,12 @@ document.getElementById("time_seek").oninput = function() {
   }
 }
 
+document.getElementById("volume").oninput = function() {
+  if(document.getElementById("current_music") !== null) {
+    document.getElementById("current_music").volume = this.value;
+  }
+}
+
 function updateHead() {
   if(document.getElementById("current_music") !== null) {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
