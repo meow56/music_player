@@ -7,6 +7,7 @@ var shuffle = true;
 var currentIndex = 0;
 var pastShuffle = true;
 var skipBackIndex = 0;
+var inThePast = false;
 var pausing = false;
 
 var fileElem = document.getElementById("file_elem");
@@ -69,9 +70,11 @@ function playMusic() {
     }, false);
     setEve = false;
   }
+  
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
       pausing = document.getElementById("current_music").paused;
+      inThePast = (skipBackIndex === 0);
       if(musicPlayed.length === music.length) {
         musicPlayed = [];
       }
@@ -150,7 +153,9 @@ function actualPlayMusic(musicToPlay) {
   if(pausing === true) {
     temp.pause();
   }
-  musicPlayed.push(musicToPlay);
+  if(!inThePast) {
+    musicPlayed.push(musicToPlay);
+  }
   document.getElementById("hud").appendChild(temp);
   var temp6 = document.createElement("BR");
   temp6.id = "break_hud"
@@ -232,6 +237,7 @@ function skipBack() {
     skipBackIndex--;
     if(musicPlayed[temp + skipBackIndex] !== null) {
       actualPlayMusic(musicPlayed[temp + skipBackIndex]);
+      inThePast = true;
     } else {
       skipBackIndex++;
     }
