@@ -236,8 +236,8 @@ function skipBack() {
     var temp = musicPlayed.length - 1;
     skipBackIndex--;
     if(musicPlayed[temp + skipBackIndex] !== null) {
-      actualPlayMusic(musicPlayed[temp + skipBackIndex]);
       inThePast = true;
+      actualPlayMusic(musicPlayed[temp + skipBackIndex]);
     } else {
       skipBackIndex++;
     }
