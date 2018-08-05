@@ -24,18 +24,18 @@ function random(min, max) {
 }
 
 function playMusic(skipForwardBypass) {
-  if(pastMusic.length !== music.length) {
+  if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
     while(document.getElementById("music_list").firstChild !== null) {
-      document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
+      document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild); // remove them all
     }
     for(var i = 0; i < music.length; i++) {
       var temp3 = music[i];
-      if(temp3 !== undefined) {
-        var temp6 = document.createElement("LI");
-        var temp2 = document.createElement("BUTTON");
-        var temp4 = temp3.name.split(".");
+      if(temp3 !== undefined) { // wait, why do i have this again?
+        var temp6 = document.createElement("LI"); // list head
+        var temp2 = document.createElement("BUTTON"); // button for music select
+        var temp4 = temp3.name.split("."); // split by period
         for(var j = 0; j < temp4.length - 1; j++) {
-          temp2.textContent += temp4[j];
+          temp2.textContent += temp4[j]; // add all the text back, but ignore the file type (ie mp3, wav, ogg)
         }
         temp6.id = music[i].name;
         temp2.onclick = function () {
@@ -50,9 +50,32 @@ function playMusic(skipForwardBypass) {
             }
           }
         };
-        temp2.style.background = "#FFF";
+        temp2.style.background = "rgba(255, 255, 255, 0);";
         temp2.style.border = "none";
         temp6.appendChild(temp2);
+        var temp7 = document.createElement("BUTTON");
+        temp7.textContent = "X"
+        temp7.id = "remove_";
+        for(var j = 0; j < temp4.length - 1; j++) {
+          temp7.id += temp4[j]; // reused!
+        }
+        temp7.onclick = function() {
+          for(var i = 0; i < music.length; i++) {
+            var temp = music[i].name.split(".");
+            var temp2 = "remove_";
+            for(var j = 0; j < temp.length - 1; j++) {
+              temp2 += temp[j];
+            }
+            if(temp2 === this.id) {
+              music.splice(i, 1);
+            }
+          }
+        }
+        temp7.style.background = "#FF0000";
+        temp7.style.border = "none";
+        temp7.style.float = "right";
+        temp7.style.color = "#250000";
+        temp6.appendChild(temp7);
         document.getElementById("music_list").appendChild(temp6);
       }
     }
