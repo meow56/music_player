@@ -73,7 +73,7 @@ function playMusic() {
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
       inThePast = (skipBackIndex !== 0);
-      if(musicPlayed.length === music.length) {
+      if(musicPlayed.length === music.length && !inThePast) {
         musicPlayed = [];
       }
       var musicTemp = music.slice();
