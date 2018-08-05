@@ -76,7 +76,7 @@ function playMusic(skipForwardBypass) {
             }
           }
           if(document.getElementById("current_music") !== null) {
-            var temp = music[i].name.split(".");
+            var temp = music[temp3].name.split(".");
             var temp2 = "Now playing: \"";
             for(var j = 0; j < temp.length - 1; j++) {
               temp2 += temp[j];
