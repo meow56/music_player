@@ -8,6 +8,7 @@ var currentIndex = 0;
 var pastShuffle = true;
 var skipBackIndex = 0;
 var inThePast = false;
+var totalMusicPlayed = [];
 
 var fileElem = document.getElementById("file_elem");
 
@@ -16,7 +17,6 @@ function submitFiles() {
   for(var i = 0; i < newFiles.length; i++) {
     music.push(newFiles[i]);
   }
-  musicPlayed = [];
 }
 
 function random(min, max) {
@@ -86,7 +86,7 @@ function playMusic() {
       }
       if(skipBackIndex !== 0) {
         skipBackIndex++;
-        var musicToPlay = musicPlayed[musicPlayed.length - 1 + skipBackIndex];
+        var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
       } else if(shuffle) {
         var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       } else {
@@ -112,7 +112,7 @@ function playMusic() {
       }
       if(skipBackIndex !== 0) {
         skipBackIndex++;
-        var musicToPlay = musicPlayed[musicPlayed.length - 1 + skipBackIndex];
+        var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
       } else if(shuffle) {
         var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
       } else {
@@ -149,6 +149,7 @@ function actualPlayMusic(musicToPlay) {
   temp.textAlign = "center";
   if(!inThePast) {
     musicPlayed.push(musicToPlay);
+    totalMusicPlayed.push(musicToPlay);
   }
   document.getElementById("hud").appendChild(temp);
   var temp6 = document.createElement("BR");
@@ -226,12 +227,12 @@ function updateThings() {
 }
 
 function skipBack() {
-  if(musicPlayed.length !== 0) {
-    var temp = musicPlayed.length - 1;
+  if(totalMusicPlayed.length !== 0) {
+    var temp = totalMusicPlayed.length - 1;
     skipBackIndex--;
-    if(musicPlayed[temp + skipBackIndex] !== undefined) {
+    if(totalMusicPlayed[temp + skipBackIndex] !== undefined) {
       inThePast = true;
-      actualPlayMusic(musicPlayed[temp + skipBackIndex]);
+      actualPlayMusic(totalMusicPlayed[temp + skipBackIndex]);
     } else {
       skipBackIndex++;
     }
