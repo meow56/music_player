@@ -50,7 +50,7 @@ function playMusic(skipForwardBypass) {
             }
           }
         };
-        temp2.style.background = "rgba(255, 255, 255, 0);";
+        temp2.style.background = "rgba(255, 255, 255, 0)";
         temp2.style.border = "none";
         temp6.appendChild(temp2);
         var temp7 = document.createElement("BUTTON");
