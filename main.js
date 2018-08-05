@@ -28,6 +28,11 @@ function playMusic(skipForwardBypass) {
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild); // remove them all
     }
+    if(music.length === 0) {
+      var temp = document.createElement("LI");
+      temp.textContent = "Nothing.";
+      document.getElementById("music_list").appendChild(temp);
+    }
     for(var i = 0; i < music.length; i++) {
       var temp3 = music[i];
       if(temp3 !== undefined) { // wait, why do i have this again?
@@ -70,6 +75,16 @@ function playMusic(skipForwardBypass) {
               music.splice(i, 1);
             }
           }
+          if(document.getElementById("current_music") !== null) {
+            var temp = document.getElementById("current_music").name.split(".");
+            var temp2 = "remove_";
+            for(var j = 0; j < temp.length - 1; j++) {
+              temp2 += temp[j];
+            }
+            if(temp2 === this.id) {
+              playMusic(true);
+            }
+          }
         }
         temp7.style.background = "#FF0000";
         temp7.style.border = "none";
@@ -96,7 +111,7 @@ function playMusic(skipForwardBypass) {
   if(document.getElementById("current_music") !== null || skipForwardBypass) {
     if(document.getElementById("current_music").ended || skipForwardBypass) {
       inThePast = (skipBackIndex !== 0);
-      if(musicPlayed.length === music.length && !inThePast) {
+      if(musicPlayed.length >= music.length && !inThePast) {
         musicPlayed = [];
       }
       var musicTemp = music.slice();
