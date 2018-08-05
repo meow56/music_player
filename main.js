@@ -8,7 +8,6 @@ var currentIndex = 0;
 var pastShuffle = true;
 var skipBackIndex = 0;
 var inThePast = false;
-var pausing = false;
 
 var fileElem = document.getElementById("file_elem");
 
@@ -73,7 +72,6 @@ function playMusic() {
   
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").ended) {
-      pausing = document.getElementById("current_music").paused;
       inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length === music.length) {
         musicPlayed = [];
@@ -147,9 +145,7 @@ function actualPlayMusic(musicToPlay) {
     temp.src = URL.createObjectURL(musicToPlay);
   }
   temp.id = "current_music";
-  if(pausing !== true) {
-    temp.autoplay = "true";
-  }
+  temp.autoplay = "true";
   temp.textAlign = "center";
   if(!inThePast) {
     musicPlayed.push(musicToPlay);
