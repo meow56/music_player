@@ -240,7 +240,7 @@ function skipBack() {
 }
 
 function skipForward() {
-  
+  playMusic(true);
 }
 
 document.getElementById("time_seek").oninput = function() {
