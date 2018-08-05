@@ -110,7 +110,7 @@ function playMusic(skipForwardBypass) {
     setEve = false;
   }
   
-  if(document.getElementById("current_music") !== null || skipForwardBypass) {
+  if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) {
     if(document.getElementById("current_music").ended || skipForwardBypass) {
       inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length >= music.length && !inThePast) {
