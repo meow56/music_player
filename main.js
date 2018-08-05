@@ -23,7 +23,7 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function playMusic() {
+function playMusic(skipForwardBypass) {
   if(pastMusic.length !== music.length) {
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild);
@@ -70,8 +70,8 @@ function playMusic() {
     setEve = false;
   }
   
-  if(document.getElementById("current_music") !== null) {
-    if(document.getElementById("current_music").ended) {
+  if(document.getElementById("current_music") !== null || skipForwardBypass) {
+    if(document.getElementById("current_music").ended || skipForwardBypass) {
       inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length === music.length && !inThePast) {
         musicPlayed = [];
@@ -96,9 +96,9 @@ function playMusic() {
         }
       }
       actualPlayMusic(musicToPlay);
-      setTimeout(playMusic, 0);
+      setTimeout(playMusic, 0, false);
     } else {
-      setTimeout(playMusic, 0);
+      setTimeout(playMusic, 0, false);
     }
   } else {
     if(music.length !== 0) {
@@ -122,14 +122,14 @@ function playMusic() {
         }
       }
       actualPlayMusic(musicToPlay);
-      setTimeout(playMusic, 0);
+      setTimeout(playMusic, 0, false);
     } else {
-      setTimeout(playMusic, 0);
+      setTimeout(playMusic, 0, false);
     }
   }
 }
 
-playMusic();
+playMusic(false);
 updateThings();
 
 function actualPlayMusic(musicToPlay) {
@@ -237,6 +237,10 @@ function skipBack() {
       skipBackIndex++;
     }
   }
+}
+
+function skipForward() {
+  
 }
 
 document.getElementById("time_seek").oninput = function() {
