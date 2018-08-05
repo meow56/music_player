@@ -146,13 +146,11 @@ function actualPlayMusic(musicToPlay) {
   } catch (error) {
     temp.src = URL.createObjectURL(musicToPlay);
   }
-  temp.controls = "true";
   temp.id = "current_music";
-  temp.autoplay = "true";
-  temp.textAlign = "center";
-  if(pausing === true) {
-    temp.pause();
+  if(pausing !== true) {
+    temp.autoplay = "true";
   }
+  temp.textAlign = "center";
   if(!inThePast) {
     musicPlayed.push(musicToPlay);
   }
