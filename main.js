@@ -140,6 +140,10 @@ function playMusic(skipForwardBypass) {
     } else {
       setTimeout(playMusic, 0, false);
     }
+  } else if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length === 0) {
+    document.getElementById("hud").removeChild(document.getElementById("current_music"));
+    document.getElementById("hud").removeChild(document.getElementById("break_hud"));
+    document.getElementById("hud").removeChild(document.getElementById("now_playing"));
   } else {
     if(music.length !== 0) {
       var musicTemp = music.slice();
