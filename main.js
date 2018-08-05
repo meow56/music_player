@@ -72,19 +72,21 @@ function playMusic(skipForwardBypass) {
               temp2 += temp[j];
             }
             if(temp2 === this.id) {
-              music.splice(i, 1);
+              var temp3 = i;
             }
           }
           if(document.getElementById("current_music") !== null) {
-            var temp = document.getElementById("current_music").name.split(".");
-            var temp2 = "remove_";
+            var temp = music[i].name.split(".");
+            var temp2 = "Now playing: \"";
             for(var j = 0; j < temp.length - 1; j++) {
               temp2 += temp[j];
             }
-            if(temp2 === this.id) {
+            temp2 += "\"";
+            if(temp2 === document.getElementById("now_playing").textContent) {
               playMusic(true);
             }
           }
+          music.splice(temp3, 1);
         }
         temp7.style.background = "#FF0000";
         temp7.style.border = "none";
