@@ -57,6 +57,7 @@ function playMusic(skipForwardBypass) {
         };
         temp2.style.background = "rgba(255, 255, 255, 0)";
         temp2.style.border = "none";
+        temp2.style.width = "95%";
         temp6.appendChild(temp2);
         var temp7 = document.createElement("BUTTON");
         temp7.textContent = "X"
@@ -92,6 +93,7 @@ function playMusic(skipForwardBypass) {
         temp7.style.border = "none";
         temp7.style.float = "right";
         temp7.style.color = "#250000";
+        temp7.style.width = "5%";
         temp6.appendChild(temp7);
         document.getElementById("music_list").appendChild(temp6);
       }
