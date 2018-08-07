@@ -39,7 +39,7 @@ button {
 
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background: #000;
+  background: #FFF;
   height: 25px;
   width: 10px;
 }
