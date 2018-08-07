@@ -22,6 +22,10 @@ body {
   border: none;
 }
 
+li {
+  width: 25px;
+}
+
 li:hover {
   background: #e0e0e0;
 }
