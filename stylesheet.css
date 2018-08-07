@@ -11,6 +11,8 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
+  border-bottom-color: #000;
+  border-bottom-width: 2px;
 }
 
 .sticky + .main {
