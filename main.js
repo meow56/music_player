@@ -193,6 +193,7 @@ function actualPlayMusic(musicToPlay) {
   temp.id = "current_music";
   temp.autoplay = "true";
   temp.textAlign = "center";
+  temp.volume = document.getElementById("volume").value;
   if(!inThePast) {
     musicPlayed.push(musicToPlay);
     totalMusicPlayed.push(musicToPlay);
