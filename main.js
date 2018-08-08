@@ -44,6 +44,7 @@ function playMusic(skipForwardBypass) {
           temp2.textContent += temp4[j]; // add all the text back, but ignore the file type (ie mp3, wav, ogg)
         }
         temp6.id = music[i].name;
+        temp6.draggable = true;
         temp2.onclick = function () {
           for(var i = 0; i < music.length; i++) {
             var temp = music[i].name.split(".");
