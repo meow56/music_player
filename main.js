@@ -321,3 +321,17 @@ function HUDStick() {
     header.classList.remove("sticky");
   }
 }
+
+var dragged;
+
+document.addEventListener("drag", function (event) {
+  
+}, false);
+
+document.addEventListener("dragstart", function( event ) {
+    // store a ref. on the dragged elem
+    dragged = event.target;
+    // make it half transparent
+    event.target.style.opacity = .5;
+}, false);
+
