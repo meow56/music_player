@@ -97,6 +97,14 @@ function playMusic(skipForwardBypass) {
         temp7.style.color = "#250000";
         temp7.style.width = "5%";
         temp6.appendChild(temp7);
+        var temp8 = document.createElement("DIV"); // div for dragging stuff
+        temp8.addEventHandler("ondragover", function(event) {
+          event.preventDefault();
+        }, false);
+        temp8.addEventHandler("ondrop", function(event) {
+          event.preventDefault();
+          document.getElementById("music_list").insertBefore(dragged, event);
+        }, false);
         document.getElementById("music_list").appendChild(temp6);
       }
     }
@@ -335,3 +343,7 @@ document.addEventListener("dragstart", function( event ) {
     event.target.style.opacity = .5;
 }, false);
 
+document.addEventListener("dragend", function( event ) {
+    // reset the transparency
+    event.target.style.opacity = "";
+}, false);
