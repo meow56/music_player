@@ -98,13 +98,13 @@ function playMusic(skipForwardBypass) {
         temp7.style.width = "5%";
         temp6.appendChild(temp7);
         var temp8 = document.createElement("DIV"); // div for dragging stuff
-        temp8.addEventHandler("ondragover", function(event) {
+        temp8.ondragover = function(event) {
           event.preventDefault();
-        }, false);
-        temp8.addEventHandler("ondrop", function(event) {
+        };
+        temp8.ondrop = function(event) {
           event.preventDefault();
           document.getElementById("music_list").insertBefore(dragged, event);
-        }, false);
+        };
         document.getElementById("music_list").appendChild(temp6);
       }
     }
