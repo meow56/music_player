@@ -9,6 +9,7 @@ var pastShuffle = true;
 var skipBackIndex = 0;
 var inThePast = false;
 var totalMusicPlayed = [];
+var pauseded = false;
 
 var fileElem = document.getElementById("file_elem");
 
@@ -191,7 +192,9 @@ function actualPlayMusic(musicToPlay) {
     temp.src = URL.createObjectURL(musicToPlay);
   }
   temp.id = "current_music";
-  temp.autoplay = "true";
+  if(!pauseded) {
+    temp.autoplay = "true";
+  }
   temp.textAlign = "center";
   temp.volume = document.getElementById("volume").value;
   if(!inThePast) {
@@ -218,6 +221,7 @@ function actualPlayMusic(musicToPlay) {
 function playPause() {
   if(document.getElementById("current_music") !== null) {
     if(document.getElementById("current_music").paused) {
+      pauseded = false;
       document.getElementById("current_music").play();
       while(document.getElementById("play_button").firstChild !== null) {
         document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
@@ -229,6 +233,7 @@ function playPause() {
       temp.height = 25;
       document.getElementById("play_button").appendChild(temp);
     } else {
+      pauseded = true;
       document.getElementById("current_music").pause();
       while(document.getElementById("play_button").firstChild !== null) {
         document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
