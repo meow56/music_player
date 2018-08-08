@@ -105,6 +105,7 @@ function playMusic(skipForwardBypass) {
           event.preventDefault();
           document.getElementById("music_list").insertBefore(dragged, event);
         };
+        temp6.appendChild(temp8);
         document.getElementById("music_list").appendChild(temp6);
       }
     }
