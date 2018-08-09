@@ -114,6 +114,10 @@ function playMusic(skipForwardBypass) {
             document.getElementById("music_list").insertBefore(dragged, this);
           }
         };
+        temp8.ondragleave = function(event) {
+          event.preventDefault();
+          this.style.background = "rgba(255, 255, 255, 0)";
+        };
         temp8.id = "div_" + music[i].name;
         temp8.style.height = "5px";
         temp8.style.width = "100%";
@@ -124,6 +128,7 @@ function playMusic(skipForwardBypass) {
     var temp8 = document.createElement("DIV"); // the last div, cuz divs appear above songs and otherwise there wouldn't be one at the end
     temp8.ondragover = function(event) {
       event.preventDefault();
+      this.style.background = "#000";
     };
     temp8.ondrop = function(event) {
       event.preventDefault();
@@ -136,6 +141,10 @@ function playMusic(skipForwardBypass) {
         document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
         document.getElementById("music_list").insertBefore(dragged, this);
       }
+    };
+    temp8.ondragleave = function(event) {
+      event.preventDefault();
+      this.style.background = "rgba(255, 255, 255, 0)";
     };
     temp8.id = "final_div";
     temp8.style.height = "5px";
