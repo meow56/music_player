@@ -353,8 +353,8 @@ function skipForward() {
 function updateMusicList() {
   for(var i = 0; i < music.length; i++) {
     if("li_" + music[i].name !== document.getElementById("music_list").childNodes[(2 * i) + 1].id) { // skip over all the divs
-      for(var j = i; j < music.length; j++) {
-        if("li_" + music[j].name !== document.getElementById("music_list").childNodes[(2 * i) + 1].id) {
+      for(var j = i + 1; j < music.length; j++) {
+        if("li_" + music[j].name === document.getElementById("music_list").childNodes[(2 * i) + 1].id) {
           var temp = music.splice(j, 1);
           var temp2 = music.splice(i, 1);
           temp = temp[0];
