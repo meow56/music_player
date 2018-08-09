@@ -104,6 +104,7 @@ function playMusic(skipForwardBypass) {
         };
         temp8.ondrop = function(event) {
           event.preventDefault();
+          this.style.background = "rgba(255, 255, 255, 0)";
           var temp = "div_";
           var temp2 = dragged.id;
           for(var i = 3; i < temp2.length; i++) {
@@ -132,6 +133,7 @@ function playMusic(skipForwardBypass) {
     };
     temp8.ondrop = function(event) {
       event.preventDefault();
+      this.style.background = "rgba(255, 255, 255, 0)";
       var temp = "div_";
       var temp2 = dragged.id;
       for(var i = 3; i < temp2.length; i++) {
