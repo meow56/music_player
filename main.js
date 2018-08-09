@@ -114,6 +114,7 @@ function playMusic(skipForwardBypass) {
             document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
             document.getElementById("music_list").insertBefore(dragged, this);
           }
+          updateMusicList();
         };
         temp8.ondragleave = function(event) {
           event.preventDefault();
@@ -346,6 +347,23 @@ function skipBack() {
 
 function skipForward() {
   playMusic(true);
+}
+
+function updateMusicList() {
+  for(var i = 0; i < music.length; i++) {
+    if("li_" + music[i].name !== document.getElementById("music_list").childNodes[(2 * i) + 1].id) { // skip over all the divs
+      for(var j = i; j < music.length; j++) {
+        if("li_" + music[j].name !== document.getElementById("music_list").childNodes[(2 * i) + 1].id) {
+          var temp = music.splice(j, 1);
+          var temp2 = music.splice(i, 1);
+          temp = temp[0];
+          temp2 = temp2[0];
+          music.splice(i, 0, temp);
+          music.splice(j, 0, temp2);
+        }
+      }
+    }
+  }
 }
 
 document.getElementById("time_seek").oninput = function() {
