@@ -106,7 +106,7 @@ function playMusic(skipForwardBypass) {
           document.getElementById("music_list").insertBefore(dragged, this);
           var temp = "div_";
           var temp2 = dragged.id;
-          for(var i = 2; i < temp2.length; i++) {
+          for(var i = 3; i < temp2.length; i++) {
             temp += temp2[i];
           }
           document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
