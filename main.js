@@ -103,7 +103,7 @@ function playMusic(skipForwardBypass) {
         };
         temp8.ondrop = function(event) {
           event.preventDefault();
-          document.getElementById("music_list").insertBefore(dragged, event);
+          document.getElementById("music_list").insertBefore(dragged, this);
         };
         temp8.class = "droparea";
         document.getElementById("music_list").appendChild(temp8);
