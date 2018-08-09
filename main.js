@@ -144,6 +144,7 @@ function playMusic(skipForwardBypass) {
         document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
         document.getElementById("music_list").insertBefore(dragged, this);
       }
+      updateMusicList();
     };
     temp8.ondragleave = function(event) {
       event.preventDefault();
