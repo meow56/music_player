@@ -43,7 +43,7 @@ function playMusic(skipForwardBypass) {
         for(var j = 0; j < temp4.length - 1; j++) {
           temp2.textContent += temp4[j]; // add all the text back, but ignore the file type (ie mp3, wav, ogg)
         }
-        temp6.id = music[i].name;
+        temp6.id = "li_" + music[i].name;
         temp6.draggable = true;
         temp2.onclick = function () {
           for(var i = 0; i < music.length; i++) {
@@ -104,8 +104,12 @@ function playMusic(skipForwardBypass) {
         temp8.ondrop = function(event) {
           event.preventDefault();
           document.getElementById("music_list").insertBefore(dragged, this);
+          var temp = "div_" + dragged.firstChild.id;
+          document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
         };
+        temp8.id = "div_" + music[i].name;
         temp8.style.height = "5px";
+        temp8.style.width = "100%";
         document.getElementById("music_list").appendChild(temp8);
         document.getElementById("music_list").appendChild(temp6);
       }
