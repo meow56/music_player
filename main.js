@@ -373,7 +373,7 @@ function updateMusicList() {
       temp2 += temp[j];
     }
     if(document.getElementById("now_playing").textContent === temp2) {
-      currentIndex = i;
+      currentIndex = i + 1;
     }
   }
 }
