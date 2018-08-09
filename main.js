@@ -186,7 +186,8 @@ function playMusic(skipForwardBypass) {
         skipBackIndex++;
         var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
       } else if(shuffle) {
-        var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
+        currentIndex = random(0, musicTemp.length - 1);
+        var musicToPlay = musicTemp[currentIndex];
       } else {
         var musicToPlay = music[currentIndex++];
         if(currentIndex >= music.length) {
@@ -216,7 +217,8 @@ function playMusic(skipForwardBypass) {
         skipBackIndex++;
         var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
       } else if(shuffle) {
-        var musicToPlay = musicTemp[random(0, musicTemp.length - 1)];
+        currentIndex = random(0, musicTemp.length - 1);
+        var musicToPlay = musicTemp[currentIndex];
       } else {
         var musicToPlay = music[currentIndex++];
         if(currentIndex >= music.length) {
