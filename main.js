@@ -368,10 +368,11 @@ function updateMusicList() {
   
   for(var i = 0; i < music.length; i++) {
     var temp = music[i].name.split(".");
-    var temp2 = "";
+    var temp2 = "Now playing: \"";
     for(var j = 0; j < temp.length - 1; j++) {
       temp2 += temp[j];
     }
+    temp2 += "\"";
     if(document.getElementById("now_playing").textContent === temp2) {
       currentIndex = i + 1;
     }
