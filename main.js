@@ -1,17 +1,17 @@
-var fileSelect = document.getElementById("file_select");
-var music = [];
-var musicPlayed = [];
-var setEve = true;
-var pastMusic = music.slice();
-var shuffle = true;
-var currentIndex = 0;
-var pastShuffle = true;
-var skipBackIndex = 0;
-var inThePast = false;
-var totalMusicPlayed = [];
-var pauseded = false;
+var fileSelect = document.getElementById("file_select"); // the button that takes the place of the file picker
+var music = []; // list of all music
+var musicPlayed = []; // list of music played in current cycle
+var setEve = true; // starter thing for setting an event listener
+var pastMusic = music.slice(); // past music to cut down on music list changes
+var shuffle = true; // shuffling or not
+var currentIndex = 0; // index for non-shuffle
+var pastShuffle = true; // change the shuffle image when shuffle state changes
+var skipBackIndex = 0; // how far back in the list of music played it is
+var inThePast = false; // whether we are in the past or not
+var totalMusicPlayed = []; // all music played, including past cycles
+var pauseded = false; // whether or not it's paused
 
-var fileElem = document.getElementById("file_elem");
+var fileElem = document.getElementById("file_elem"); // the original, invisible file picker
 
 function submitFiles() {
   var newFiles = fileSelect.files;
@@ -363,6 +363,17 @@ function updateMusicList() {
           music.splice(j, 0, temp2);
         }
       }
+    }
+  }
+  
+  for(var i = 0; i < music.length; i++) {
+    var temp = music[i].name.split(".");
+    var temp2 = "";
+    for(var j = 0; j < temp.length - 1; j++) {
+      temp2 += temp[j];
+    }
+    if(document.getElementById("now_playing").textContent === temp2) {
+      currentIndex = i;
     }
   }
 }
