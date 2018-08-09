@@ -100,6 +100,7 @@ function playMusic(skipForwardBypass) {
         var temp8 = document.createElement("DIV"); // div for dragging stuff
         temp8.ondragover = function(event) {
           event.preventDefault();
+          this.style.background = "#000";
         };
         temp8.ondrop = function(event) {
           event.preventDefault();
@@ -120,6 +121,26 @@ function playMusic(skipForwardBypass) {
         document.getElementById("music_list").appendChild(temp6);
       }
     }
+    var temp8 = document.createElement("DIV"); // the last div, cuz divs appear above songs and otherwise there wouldn't be one at the end
+    temp8.ondragover = function(event) {
+      event.preventDefault();
+    };
+    temp8.ondrop = function(event) {
+      event.preventDefault();
+      var temp = "div_";
+      var temp2 = dragged.id;
+      for(var i = 3; i < temp2.length; i++) {
+        temp += temp2[i];
+      }
+      if(document.getElementById(temp) !== this.previousSibling) { // previousSibling because we're putting songs above this one, and it needs to make sure it's not the same
+        document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
+        document.getElementById("music_list").insertBefore(dragged, this);
+      }
+    };
+    temp8.id = "final_div";
+    temp8.style.height = "5px";
+    temp8.style.width = "100%";
+    document.getElementById("music_list").appendChild(temp8);
     pastMusic = music.slice();
   }
   
