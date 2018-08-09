@@ -108,8 +108,10 @@ function playMusic(skipForwardBypass) {
           for(var i = 3; i < temp2.length; i++) {
             temp += temp2[i];
           }
-          document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
-          document.getElementById("music_list").insertBefore(dragged, this);
+          if(document.getElementById(temp) !== this) {
+            document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
+            document.getElementById("music_list").insertBefore(dragged, this);
+          }
         };
         temp8.id = "div_" + music[i].name;
         temp8.style.height = "5px";
