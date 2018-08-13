@@ -10,6 +10,8 @@ var skipBackIndex = 0; // how far back in the list of music played it is
 var inThePast = false; // whether we are in the past or not
 var totalMusicPlayed = []; // all music played, including past cycles
 var pauseded = false; // whether or not it's paused
+var loop = 2; // determine loop type; 0 = no loop; 1 = single loop; 2 = continuous loop
+var pastLoop = loop; // change the loop image when loop state changes
 
 var fileElem = document.getElementById("file_elem"); // the original, invisible file picker
 
@@ -171,7 +173,7 @@ function playMusic(skipForwardBypass) {
   if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) {
     if(document.getElementById("current_music").ended || skipForwardBypass) {
       inThePast = (skipBackIndex !== 0);
-      if(musicPlayed.length >= music.length && !inThePast) {
+      if(musicPlayed.length >= music.length && !inThePast && loop !== 0) {
         musicPlayed = [];
       }
       var musicTemp = music.slice();
@@ -182,19 +184,35 @@ function playMusic(skipForwardBypass) {
           }
         }
       }
-      if(skipBackIndex !== 0) {
+      if(loop === 1) {
+        for(var i = 0; i < music.length; i++) {
+          var temp = music[i].name.split(".");
+          var temp2 = "Now playing: \"";
+          for(var j = 0; j < temp.length - 1; j++) {
+            temp2 += temp[j];
+          }
+          temp2 += "\"";
+          if(temp2 === document.getElementById("now_playing").textContent) {
+            var musicToPlay = music[i];
+          }
+        }
+      } else if(skipBackIndex !== 0) {
         skipBackIndex++;
         var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
       } else if(shuffle) {
         currentIndex = random(0, musicTemp.length - 1);
         var musicToPlay = musicTemp[currentIndex];
       } else {
-        var musicToPlay = music[currentIndex++];
-        if(currentIndex >= music.length) {
+        if(currentIndex < music.length) {
+          var musicToPlay = music[currentIndex++];
+        }
+        if(currentIndex >= music.length && loop !== 0) {
           currentIndex = 0;
         }
       }
-      actualPlayMusic(musicToPlay);
+      if(loop !== 0 && musicPlayed.length >= music.length) {
+        actualPlayMusic(musicToPlay);
+      }
       setTimeout(playMusic, 0, false);
     } else {
       setTimeout(playMusic, 0, false);
@@ -213,15 +231,31 @@ function playMusic(skipForwardBypass) {
           }
         }
       }
-      if(skipBackIndex !== 0) {
+      if(loop === 1) {
+        for(var i = 0; i < music.length; i++) {
+          var temp = music[i].name.split(".");
+          var temp2 = "Now playing: \"";
+          for(var j = 0; j < temp.length - 1; j++) {
+            temp2 += temp[j];
+          }
+          temp2 += "\"";
+          if(temp2 === document.getElementById("now_playing").textContent) {
+            var musicToPlay = music[i];
+          }
+        }
+      } else if(skipBackIndex !== 0) {
         skipBackIndex++;
         var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
       } else if(shuffle) {
         currentIndex = random(0, musicTemp.length - 1);
         var musicToPlay = musicTemp[currentIndex];
       } else {
-        var musicToPlay = music[currentIndex++];
-        if(currentIndex >= music.length) {
+        if(loop === 1) {
+          var musicToPlay = music[currentIndex];
+        } else {
+          var musicToPlay = music[currentIndex++];
+        }
+        if(currentIndex >= music.length && loop !== 0) {
           currentIndex = 0;
         }
       }
@@ -318,20 +352,50 @@ function updateThings() {
     if(shuffle) {
       var temp = document.createElement("IMG");
       temp.src = "images/shuffle.png";
-      temp.alt = "Shuffle on";
+      temp.alt = "Shuffle ON";
       temp.width = 25;
       temp.height = 25;
       document.getElementById("shuffle").appendChild(temp);
     } else {
       var temp = document.createElement("IMG");
       temp.src = "images/no shuffle.png";
-      temp.alt = "Shuffle off";
+      temp.alt = "Shuffle OFF";
       temp.width = 25;
       temp.height = 25;
       document.getElementById("shuffle").appendChild(temp);
     }
   }
   pastShuffle = shuffle;
+  
+  if(pastLoop !== loop) {
+    while(document.getElementById("loop").firstChild !== null) {
+      document.getElementById("loop").removeChild(document.getElementById("loop").firstChild);
+    }
+    if(loop === 0) {
+      var temp = document.createElement("IMG");
+      temp.src = "images/no loop.png";
+      temp.alt = "Loop OFF";
+      temp.width = 25;
+      temp.height = 25;
+      document.getElementById("loop").appendChild(temp);
+    } else if (loop === 1) {
+      var temp = document.createElement("IMG");
+      temp.src = "images/single loop.png";
+      temp.alt = "Loop SINGLE";
+      temp.width = 25;
+      temp.height = 25;
+      document.getElementById("loop").appendChild(temp);
+    } else {
+      var temp = document.createElement("IMG");
+      temp.src = "images/loop.png";
+      temp.alt = "Loop ON";
+      temp.width = 25;
+      temp.height = 25;
+      document.getElementById("loop").appendChild(temp);
+    }
+  }
+  pastLoop = loop;
+  
   setTimeout(updateThings, 0);
 }
 
