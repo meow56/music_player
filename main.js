@@ -210,7 +210,7 @@ function playMusic(skipForwardBypass) {
           currentIndex = 0;
         }
       }
-      if(loop !== 0 || musicPlayed.length < music.length) {
+      if(loop !== 0 || musicPlayed.length < music.length || inThePast) {
         actualPlayMusic(musicToPlay);
       }
       setTimeout(playMusic, 0, false);
