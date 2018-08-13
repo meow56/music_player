@@ -288,7 +288,7 @@ function actualPlayMusic(musicToPlay) {
   }
   temp.textAlign = "center";
   temp.volume = document.getElementById("volume").value;
-  if(!inThePast) {
+  if(!inThePast && loop !== 1) {
     musicPlayed.push(musicToPlay);
     totalMusicPlayed.push(musicToPlay);
   }
