@@ -1,4 +1,5 @@
 .hud {
+  position: fixed;
   background: #FFF;
   text-align: center;
 }
@@ -8,7 +9,6 @@ body {
 }
 
 .sticky {
-  position: fixed;
   top: 0;
   width: 100%;
 }
