@@ -47,6 +47,19 @@ function random(min, max) {
 
 function playMusic(skipForwardBypass) {
   if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
+    var temp3 = 0; // running total
+    for(var i = 0; i < newFiles.length; i++) {
+      var temp = document.createElement("AUDIO")
+      try {
+        temp.srcObject = newFiles[i];
+      } catch (error) {
+        temp.src = URL.createObjectURL(newFiles[i]);
+      }
+      var temp2 = temp.duration;
+      temp3 += temp2;
+    }
+    totalTime = Math.round(temp3);
+    
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild); // remove them all
     }
