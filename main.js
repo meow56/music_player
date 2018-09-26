@@ -366,8 +366,8 @@ function updateThings() {
   if(document.getElementById("current_music") !== null) {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
+    currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
   }
-  currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
   var temp = Math.round(currentTotalTime);
   if(temp >= 3600) {
     var temp2 = Math.floor(temp / 3600) + ":" + Math.floor(temp / 60) + ":" + (temp % 60);
