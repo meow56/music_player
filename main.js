@@ -26,19 +26,9 @@ var fileElem = document.getElementById("file_elem"); // the original, invisible 
 
 function submitFiles() {
   var newFiles = fileSelect.files;
-  var temp3 = 0; // running total
   for(var i = 0; i < newFiles.length; i++) {
     music.push(newFiles[i]);
-    var temp = document.createElement("AUDIO")
-    try {
-      temp.srcObject = newFiles[i];
-    } catch (error) {
-      temp.src = URL.createObjectURL(newFiles[i]);
-    }
-    var temp2 = temp.duration;
-    temp3 += temp2;
   }
-  totalTime = Math.round(temp3);
 }
 
 function random(min, max) {
@@ -55,6 +45,7 @@ function playMusic(skipForwardBypass) {
       } catch (error) {
         temp.src = URL.createObjectURL(music[i]);
       }
+      document.getElementById("hud").appendChild(temp)
       var temp2 = temp.duration;
       temp3 += temp2;
     }
