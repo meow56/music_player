@@ -295,12 +295,14 @@ function musicLength(index) {
     temp.src = URL.createObjectURL(music[index]);
   }
   document.getElementById("hud").appendChild(temp);
+    alert("HI");
   if(index < music.length - 1) {
-    setTimeout(determineLength, 10, index);
+    setTimeout(determineLength, 1000, index);
   }
 }
 
 function determineLength(index) {
+    alert("HELLO!");
   var temp2 = document.getElementById("det_len").duration;
   temp3 += temp2;
   document.getElementById("hud").removeChild(document.getElementById("det_len"));
