@@ -387,12 +387,12 @@ function updateThings() {
   }
   var temp = Math.round(currentTotalTime);
   if(temp >= 3600) {
-    var temp2 = Math.floor(temp / 3600) + ":" + Math.floor(temp / 60) + ":" + (temp % 60);
+    var temp2 = Math.floor(temp / 3600) + ":" + (Math.floor(temp / 60) % 60) + ":" + (temp % 60);
   } else {
     var temp2 = Math.floor(temp / 60) + ":" + (temp % 60);
   }
   if(totalTime >= 3600) {
-    var temp3 = Math.floor(totalTime / 3600) + ":" + Math.floor(totalTime / 60) + ":" + (totalTime % 60);
+    var temp3 = Math.floor(totalTime / 3600) + ":" + (Math.floor(totalTime / 60) % 60) + ":" + (totalTime % 60);
   } else {
     var temp3 = Math.floor(totalTime / 60) + ":" + (totalTime % 60);
   }
