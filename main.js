@@ -37,8 +37,7 @@ function random(min, max) {
 
 function playMusic(skipForwardBypass) {
   if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
-    var temp3 = 0; // running total
-    musicLength(0);
+    musicLength(0, 0); // index, running total
     
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild); // remove them all
@@ -284,7 +283,7 @@ function playMusic(skipForwardBypass) {
 playMusic(false);
 updateThings();
 
-function musicLength(index) {
+function musicLength(index, temp3) {
   var temp = document.createElement("AUDIO");
   temp.id = "det_len";
   temp.autoplay = "true";
@@ -297,17 +296,17 @@ function musicLength(index) {
   document.getElementById("hud").appendChild(temp);
     alert("HI");
   if(index < music.length) {
-    setTimeout(determineLength, 1, index);
+    setTimeout(determineLength, 1, index, temp3);
   }
 }
 
-function determineLength(index) {
+function determineLength(index, temp3) {
     alert("HELLO!");
   var temp2 = document.getElementById("det_len").duration;
   temp3 += temp2;
   document.getElementById("hud").removeChild(document.getElementById("det_len"));
   totalTime = Math.round(temp3);
-  musicLength(index + 1);
+  musicLength(index + 1, temp3);
 }
 
 function actualPlayMusic(musicToPlay) {
