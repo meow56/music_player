@@ -12,6 +12,9 @@ var totalMusicPlayed = []; // all music played, including past cycles
 var pauseded = false; // whether or not it's paused
 var loop = 2; // determine loop type; 0 = no loop; 1 = single loop; 2 = continuous loop
 var pastLoop = loop; // change the loop image when loop state changes
+var totalTime = 0; // total length of all music
+var currentTotalTime = 0; // total time of all music played
+var previousTotalTime = 0; // total time of all music finished
 
 var fileElem = document.getElementById("file_elem"); // the original, invisible file picker
 
@@ -20,6 +23,18 @@ function submitFiles() {
   for(var i = 0; i < newFiles.length; i++) {
     music.push(newFiles[i]);
   }
+  var temp3 = 0; // running total
+  for(var i = 0; i < music.length; i++) {
+    var temp = document.createElement("AUDIO")
+    try {
+      temp.srcObject = music[i];
+    } catch (error) {
+      temp.src = URL.createObjectURL(music[i]);
+    }
+    var temp2 = temp.duration;
+    temp3 += temp2;
+  }
+  totalTime = Math.round(temp3);
 }
 
 function random(min, max) {
@@ -172,6 +187,8 @@ function playMusic(skipForwardBypass) {
   
   if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) {
     if(document.getElementById("current_music").ended || skipForwardBypass) {
+      currentTotalTime = previousTotalTime + document.getElementById("current_music").duration;
+      previousTotalTime += document.getElementById("current_music").duration;
       inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length >= music.length && !inThePast && loop !== 0) {
         musicPlayed = [];
@@ -344,6 +361,19 @@ function updateThings() {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
   }
+  currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
+  var temp = Math.round(currentTotalTime);
+  if(temp >= 3600) {
+    var temp2 = Math.floor(temp / 3600) + ":" + Math.floor(temp / 60) + ":" + (temp % 60);
+  } else {
+    var temp2 = Math.floor(temp / 60) + ":" + (temp % 60);
+  }
+  if(totalTime >= 3600) {
+    var temp3 = Math.floor(totalTime / 3600) + ":" + Math.floor(totalTime / 60) + ":" + (totalTime % 60);
+  } else {
+    var temp3 = Math.floor(totalTime / 60) + ":" + (totalTime % 60);
+  }
+  document.getElementById("total_time").innerHTML = temp2 + "/" + temp3;
   
   if(pastShuffle !== shuffle) {
     while(document.getElementById("shuffle").firstChild !== null) {
