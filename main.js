@@ -45,8 +45,8 @@ function playMusic(skipForwardBypass) {
       } catch (error) {
         temp.src = URL.createObjectURL(music[i]);
       }
-        alert(temp.duration);
       document.getElementById("hud").appendChild(temp);
+        alert(temp.duration);
       var temp2 = temp.duration;
       temp3 += temp2;
       document.getElementById("hud").removeChild(temp);
