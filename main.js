@@ -296,17 +296,17 @@ function musicLength(index, temp3) {
   document.getElementById("hud").appendChild(temp);
     alert("HI");
   if(index < music.length) {
-    setTimeout(determineLength, 1, index, temp3);
+    setTimeout(determineLength, 10, index, temp3);
   }
 }
 
 function determineLength(index, temp3) {
-    alert("HELLO!");
-  var temp2 = document.getElementById("det_len").duration;
-  temp3 += temp2;
+  alert("HELLO!");
+    alert(temp3);
+  temp3 += document.getElementById("det_len").duration;
   document.getElementById("hud").removeChild(document.getElementById("det_len"));
   totalTime = Math.round(temp3);
-    alert(totalTime)
+  alert(totalTime);
   musicLength(index + 1, temp3);
 }
 
