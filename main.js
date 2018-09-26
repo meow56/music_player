@@ -296,7 +296,7 @@ function musicLength(index, temp3) {
   document.getElementById("hud").appendChild(temp);
     alert("HI");
   if(index < music.length) {
-    setTimeout(determineLength, 200 / 3, index, temp3);
+    setTimeout(determineLength, 50, index, temp3);
   }
 }
 
