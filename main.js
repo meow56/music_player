@@ -1,3 +1,9 @@
+window.onerror = function(message, source, lineno, colno, error) {
+    alert(message);
+    alert("Error found on line " + lineno);
+    alert("Error found on column " + colno);
+}
+
 var fileSelect = document.getElementById("file_select"); // the button that takes the place of the file picker
 var music = []; // list of all music
 var musicPlayed = []; // list of music played in current cycle
