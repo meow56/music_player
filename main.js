@@ -48,12 +48,12 @@ function random(min, max) {
 function playMusic(skipForwardBypass) {
   if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
     var temp3 = 0; // running total
-    for(var i = 0; i < newFiles.length; i++) {
+    for(var i = 0; i < music.length; i++) {
       var temp = document.createElement("AUDIO")
       try {
-        temp.srcObject = newFiles[i];
+        temp.srcObject = music[i];
       } catch (error) {
-        temp.src = URL.createObjectURL(newFiles[i]);
+        temp.src = URL.createObjectURL(music[i]);
       }
       var temp2 = temp.duration;
       temp3 += temp2;
