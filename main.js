@@ -38,20 +38,7 @@ function random(min, max) {
 function playMusic(skipForwardBypass) {
   if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
     var temp3 = 0; // running total
-    for(var i = 0; i < music.length; i++) {
-      var temp = document.createElement("AUDIO");
-      try {
-        temp.srcObject = music[i];
-      } catch (error) {
-        temp.src = URL.createObjectURL(music[i]);
-      }
-      document.getElementById("hud").appendChild(temp);
-        alert(temp.duration);
-      var temp2 = temp.duration;
-      temp3 += temp2;
-      document.getElementById("hud").removeChild(temp);
-    }
-    totalTime = Math.round(temp3);
+    musicLength(0);
     
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild); // remove them all
@@ -296,6 +283,29 @@ function playMusic(skipForwardBypass) {
 
 playMusic(false);
 updateThings();
+
+function musicLength(index) {
+  var temp = document.createElement("AUDIO");
+  temp.id = "det_len";
+  try {
+    temp.srcObject = music[index];
+  } catch (error) {
+    temp.src = URL.createObjectURL(music[index]);
+  }
+  document.getElementById("hud").appendChild(temp);
+  alert(temp.duration);
+  if(index < music.length - 1) {
+    setTimeout(determineLength, 1, index);
+  }
+}
+
+function determineLength(index) {
+  var temp2 = document.getElementById("det_len").duration;
+  temp3 += temp2;
+  document.getElementById("hud").removeChild(document.getElementById("det_len"));
+  totalTime = Math.round(temp3);
+  musicLength(index + 1);
+}
 
 function actualPlayMusic(musicToPlay) {
   if(document.getElementById("current_music") !== null) {
