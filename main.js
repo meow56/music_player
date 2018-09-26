@@ -306,6 +306,7 @@ function determineLength(index, temp3) {
   temp3 += temp2;
   document.getElementById("hud").removeChild(document.getElementById("det_len"));
   totalTime = Math.round(temp3);
+    alert(totalTime)
   musicLength(index + 1, temp3);
 }
 
