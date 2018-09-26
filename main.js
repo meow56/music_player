@@ -287,13 +287,14 @@ updateThings();
 function musicLength(index) {
   var temp = document.createElement("AUDIO");
   temp.id = "det_len";
+  temp.autoplay = "true";
+  temp.volume = 0;
   try {
     temp.srcObject = music[index];
   } catch (error) {
     temp.src = URL.createObjectURL(music[index]);
   }
   document.getElementById("hud").appendChild(temp);
-  alert(temp.duration);
   if(index < music.length - 1) {
     setTimeout(determineLength, 1, index);
   }
