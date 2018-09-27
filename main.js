@@ -381,7 +381,19 @@ function updateThings() {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
     currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
-    document.getElementById("
+    var tmpe = Math.round(document.getElementById("current_music").currentTime);
+    if(tmpe >= 3600) {
+      tmpe = Math.floor(tmpe / 3600) + ":" + ((Math.floor(tmpe / 60) % 60 < 10) ? ("0" + Math.floor(tmpe / 60) % 60):(Math.floor(tmpe / 60) % 60)) + ":" + ((tmpe % 60 < 10) ? ("0" + tmpe % 60):(tmpe % 60));
+    } else {
+      tmpe = ((Math.floor(tmpe / 60) % 60 < 10) ? ("0" + Math.floor(tmpe / 60) % 60):(Math.floor(tmpe / 60) % 60)) + ":" + ((tmpe % 60 < 10) ? ("0" + tmpe % 60):(tmpe % 60));
+    }
+    var tmep = Math.round(document.getElementById("current_music").duration);
+    if(tmep >= 3600) {
+      tmep = Math.floor(tmep / 3600) + ":" + ((Math.floor(tmep / 60) % 60 < 10) ? ("0" + Math.floor(tmep / 60) % 60):(Math.floor(tmep / 60) % 60)) + ":" + ((tmep % 60 < 10) ? ("0" + tmep % 60):(tmep % 60));
+    } else {
+      tmep = ((Math.floor(tmep / 60) % 60 < 10) ? ("0" + Math.floor(tmep / 60) % 60):(Math.floor(tmep / 60) % 60)) + ":" + ((tmep % 60 < 10) ? ("0" + tmep % 60):(tmep % 60));
+    }
+    document.getElementById("time_words").innerHTML = tmpe + "/" + tmep;
   }
   var temp = Math.round(currentTotalTime);
   if(temp >= 3600) {
