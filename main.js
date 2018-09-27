@@ -294,7 +294,6 @@ function musicLength(index, temp3) {
     temp.src = URL.createObjectURL(music[index]);
   }
   document.getElementById("hud").appendChild(temp);
-    alert(temp3)
   if(index < music.length) {
     setTimeout(determineLength, 200, index, temp3);
   }
