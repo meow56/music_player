@@ -295,7 +295,7 @@ function musicLength(index, temp3) {
   }
   document.getElementById("hud").appendChild(temp);
   if(index < music.length) {
-    setTimeout(determineLength, 200, index, temp3);
+    setTimeout(determineLength, 300, index, temp3);
   }
 }
 
@@ -396,14 +396,14 @@ function updateThings() {
   }
   var temp = Math.round(currentTotalTime);
   if(temp >= 3600) {
-    var temp2 = Math.floor(temp / 3600) + ":" + (Math.floor(temp / 60) % 60) + ":" + (temp % 60);
+    var temp2 = Math.floor(temp / 3600) + ":" + ((Math.floor(temp / 60) % 60 < 10) ? ("0" + Math.floor(temp / 60) % 60):(Math.floor(temp / 60) % 60)) + ":" + ((temp % 60 < 10) ? ("0" + temp % 60):(temp % 60));
   } else {
-    var temp2 = Math.floor(temp / 60) + ":" + (temp % 60);
+    var temp2 = ((Math.floor(temp / 60) % 60 < 10) ? ("0" + Math.floor(temp / 60) % 60):(Math.floor(temp / 60) % 60)) + ":" + ((temp % 60 < 10) ? ("0" + temp % 60):(temp % 60));
   }
   if(totalTime >= 3600) {
-    var temp3 = Math.floor(totalTime / 3600) + ":" + (Math.floor(totalTime / 60) % 60) + ":" + (totalTime % 60);
+    var temp3 = Math.floor(totalTime / 3600) + ":" + ((Math.floor(totalTime / 60) % 60 < 10) ? ("0" + Math.floor(totalTime / 60) % 60):(Math.floor(totalTime / 60) % 60)) + ":" + ((totalTime % 60 < 10) ? ("0" + totalTime % 60):(totalTime % 60));
   } else {
-    var temp3 = Math.floor(totalTime / 60) + ":" + (totalTime % 60);
+    var temp3 = ((Math.floor(totalTime / 60) % 60 < 10) ? ("0" + Math.floor(totalTime / 60) % 60):(Math.floor(totalTime / 60) % 60)) + ":" + ((totalTime % 60 < 10) ? ("0" + totalTime % 60):(totalTime % 60));
   }
   document.getElementById("total_time").innerHTML = temp2 + "/" + temp3;
   
