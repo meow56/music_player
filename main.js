@@ -294,6 +294,7 @@ function musicLength(index, temp3) {
     temp.src = URL.createObjectURL(music[index]);
   }
   document.getElementById("hud").appendChild(temp);
+    alert(temp3)
   if(index < music.length) {
     setTimeout(determineLength, 200 / 3, index, temp3);
   }
@@ -380,6 +381,7 @@ function updateThings() {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
     currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
+    document.getElementById("
   }
   var temp = Math.round(currentTotalTime);
   if(temp >= 3600) {
