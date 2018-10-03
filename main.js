@@ -21,6 +21,7 @@ var pastLoop = loop; // change the loop image when loop state changes
 var totalTime = 0; // total length of all music
 var currentTotalTime = 0; // total time of all music played
 var previousTotalTime = 0; // total time of all music finished
+var frameIndex = 0;
 
 var fileElem = document.getElementById("file_elem"); // the original, invisible file picker
 
@@ -376,7 +377,8 @@ function playPause() {
 }
 
 function updateThings() {
-  if(Number.isNaN(totalTime)) {
+  frameIndex++
+  if(Number.isNaN(totalTime) && frameIndex % 5 === 0) {
     musicLength(0, 0); // if totalTime is NaN, redo!
   }
   if(document.getElementById("current_music") !== null) {
