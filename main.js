@@ -378,12 +378,14 @@ function playPause() {
 
 function updateThings() {
   frameIndex++
+    /*
   if(Number.isNaN(totalTime) && frameIndex % 600 === 0) {
     while(document.getElementById("temp_store").firstChild !== null) {
       document.getElementById("temp_store").removeChild(document.getElementById("temp_store").firstChild);
     }
     musicLength(0, 0); // if totalTime is NaN, redo!
   }
+  */
   if(document.getElementById("current_music") !== null) {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
