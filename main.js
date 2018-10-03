@@ -378,7 +378,7 @@ function playPause() {
 
 function updateThings() {
   frameIndex++
-  if(Number.isNaN(totalTime) && frameIndex % 5 === 0) {
+  if(Number.isNaN(totalTime) && frameIndex % 30 === 0) {
     musicLength(0, 0); // if totalTime is NaN, redo!
   }
   if(document.getElementById("current_music") !== null) {
