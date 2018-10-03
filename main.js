@@ -179,6 +179,17 @@ function playMusic(skipForwardBypass) {
         fileSelect.click();
       }
     }, false);
+    
+    document.addEventListener("keypress", function (e) {
+      if(document.getElementById("current_music") !== null) {
+        if(document.getElementById("current_music").paused) {
+          document.getElementById("current_music").play();
+        } else {
+          document.getElementById("current_music").pause();
+        }
+      }
+    }, false);
+    
     setEve = false;
   }
   
@@ -355,27 +366,13 @@ function playPause() {
     if(document.getElementById("current_music").paused) {
       pauseded = false;
       document.getElementById("current_music").play();
-      while(document.getElementById("play_button").firstChild !== null) {
-        document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
-      }
-      var temp = document.createElement("IMG");
-      temp.src = "images/pause.png";
-      temp.alt = "Pause";
-      temp.width = 25;
-      temp.height = 25;
-      document.getElementById("play_button").appendChild(temp);
+      document.getElementById("pause_image").display = "initial";
+      document.getElementById("play_image").display = "none";
     } else {
       pauseded = true;
       document.getElementById("current_music").pause();
-      while(document.getElementById("play_button").firstChild !== null) {
-        document.getElementById("play_button").removeChild(document.getElementById("play_button").firstChild);
-      }
-      var temp = document.createElement("IMG");
-      temp.src = "images/play.png";
-      temp.alt = "Play";
-      temp.width = 25;
-      temp.height = 25;
-      document.getElementById("play_button").appendChild(temp);
+      document.getElementById("pause_image").display = "none";
+      document.getElementById("play_image").display = "initial";
     }
   }
 }
