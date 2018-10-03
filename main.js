@@ -302,7 +302,7 @@ function musicLength(index, temp3) {
 
 function determineLength(index, temp3) {
   temp3 += document.getElementById("det_len").duration;
-  document.getElementById("hud").removeChild(document.getElementById("det_len"));
+  document.getElementById("temp_store").removeChild(document.getElementById("det_len"));
   totalTime = Math.round(temp3);
   musicLength(index + 1, temp3);
 }
