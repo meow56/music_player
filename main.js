@@ -294,7 +294,7 @@ function musicLength(index, temp3) {
   } catch (error) {
     temp.src = URL.createObjectURL(music[index]);
   }
-  document.getElementById("hud").appendChild(temp);
+  document.getElementById("temp_store").appendChild(temp);
   if(index < music.length) {
     setTimeout(determineLength, 300, index, temp3);
   }
@@ -379,6 +379,9 @@ function playPause() {
 function updateThings() {
   frameIndex++
   if(Number.isNaN(totalTime) && frameIndex % 30 === 0) {
+    while(document.getElementById("temp_store").firstChild !== null) {
+      document.getElementById("temp_store").removeChild(document.getElementById("temp_store").firstChild);
+    }
     musicLength(0, 0); // if totalTime is NaN, redo!
   }
   if(document.getElementById("current_music") !== null) {
