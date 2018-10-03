@@ -376,6 +376,9 @@ function playPause() {
 }
 
 function updateThings() {
+  if(Number.isNaN(totalTime)) {
+    musicLength(0, 0); // if totalTime is NaN, redo!
+  }
   if(document.getElementById("current_music") !== null) {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
