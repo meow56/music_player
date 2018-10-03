@@ -378,7 +378,7 @@ function playPause() {
 
 function updateThings() {
   frameIndex++
-  if(Number.isNaN(totalTime) && frameIndex % 30 === 0) {
+  if(Number.isNaN(totalTime) && frameIndex % 600 === 0) {
     while(document.getElementById("temp_store").firstChild !== null) {
       document.getElementById("temp_store").removeChild(document.getElementById("temp_store").firstChild);
     }
