@@ -22,6 +22,10 @@ var totalTime = 0; // total length of all music
 var currentTotalTime = 0; // total time of all music played
 var previousTotalTime = 0; // total time of all music finished
 var frameIndex = 0;
+var title = [];
+var artist = [];
+var album = [];
+var year = [];
 
 var fileElem = document.getElementById("file_elem"); // the original, invisible file picker
 
@@ -179,6 +183,29 @@ function playMusic(skipForwardBypass) {
         fileSelect.click();
       }
     }, false);
+    
+    // Taken from https://ericbidelman.tumblr.com/post/8343485440/reading-mp3-id3-tags-in-javascript
+    fileElem.onchange = function(e) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var dv = new jDataView(this.result);
+
+        // "TAG" starts at byte -128 from EOF.
+        // See http://en.wikipedia.org/wiki/ID3
+        if (dv.getString(3, dv.byteLength - 128) == 'TAG') {
+          title.push(dv.getString(30, dv.tell()));
+          artist.push(dv.getString(30, dv.tell()));
+          album.push(dv.getString(30, dv.tell()));
+          year.push(dv.getString(4, dv.tell()));
+        } else {
+          // no ID3v1 data found.
+        }
+      };
+      for(var i = 0; i < this.files.length; i++) {
+        reader.readAsArrayBuffer(this.files[i]);
+      }
+    };
     
     document.addEventListener("keypress", function (e) {
       if(document.getElementById("current_music") !== null) {
@@ -349,14 +376,11 @@ function actualPlayMusic(musicToPlay) {
   temp6.id = "break_hud"
   document.getElementById("hud").appendChild(temp6);
   var temp5 = document.createElement("PARAGRAPH");
-  var temp4 = musicToPlay.name.split(".");
-  temp5.id = "now_playing";
-  temp5.innerHTML = "Now playing: \""
-  for(var j = 0; j < temp4.length - 1; j++) {
-    temp5.innerHTML += temp4[j];
+  for(var i = 0; i < music.length; i++) {
+    if(music[i].name === musicToPlay.name) {
+      temp5.textContent = "Now playing: \"" + title[i] + "\"";
+    }
   }
-  temp5.innerHTML += "\"";
-  temp5.textAlign = "center";
   document.getElementById("hud").appendChild(temp5);
   document.getElementById("time_seek").min = 0;
 }
