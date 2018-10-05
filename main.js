@@ -376,9 +376,14 @@ function actualPlayMusic(musicToPlay) {
   temp6.id = "break_hud"
   document.getElementById("hud").appendChild(temp6);
   var temp5 = document.createElement("PARAGRAPH");
+  temp5.id = "now_playing";
   for(var i = 0; i < music.length; i++) {
     if(music[i].name === musicToPlay.name) {
-      temp5.textContent = "Now playing: \"" + title[i] + "\"";
+      if(title[i] !== undefined) {
+        temp5.textContent = "Now playing: \"" + title[i] + "\"";
+      } else {
+        temp5.textContent = "Now playing: \"" + musicToPlay.name + "\"";
+      }
     }
   }
   document.getElementById("hud").appendChild(temp5);
