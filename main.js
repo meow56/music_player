@@ -208,11 +208,13 @@ function playMusic(skipForwardBypass) {
     };
     
     document.addEventListener("keypress", function (e) {
-      if(document.getElementById("current_music") !== null) {
-        if(document.getElementById("current_music").paused) {
-          document.getElementById("current_music").play();
-        } else {
-          document.getElementById("current_music").pause();
+      if(e.key === " ") {
+        if(document.getElementById("current_music") !== null) {
+          if(document.getElementById("current_music").paused) {
+            document.getElementById("current_music").play();
+          } else {
+            document.getElementById("current_music").pause();
+          }
         }
       }
     }, false);
@@ -384,10 +386,10 @@ function actualPlayMusic(musicToPlay) {
       } else {
         var temp409 = musicToPlay.name.split(".");
         temp5.textContent = "Now playing: \"";
-        for(var i = 0; i < temp409.length - 1; i++) {
-          temp5.textContent += temp409[i];
+        for(var j = 0; j < temp409.length - 1; j++) {
+          temp5.textContent += temp409[j];
         }
-        temp5.textContent += "\""
+        temp5.textContent += "\"";
       }
     }
   }
