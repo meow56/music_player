@@ -209,6 +209,7 @@ function playMusic(skipForwardBypass) {
     
     document.addEventListener("keypress", function (e) {
       if(e.key === " ") {
+        e.preventDefault();
         if(document.getElementById("current_music") !== null) {
           if(document.getElementById("current_music").paused) {
             document.getElementById("current_music").play();
