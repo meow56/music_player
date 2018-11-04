@@ -429,6 +429,7 @@ function updateThings() {
     for(var i = 0; i < time.length; i++) {
       totalTime += time[i];
     }
+    totalTime = Math.floor(totalTime);
     currentTotalTime = 0;
     for(var i = 0; i < musicPlayed.length; i++) {
       for(var j = 0; j < music.length; j++) {
@@ -438,6 +439,7 @@ function updateThings() {
       }
     }
     currentTotalTime += document.getElementById("current_music").currentTime;
+    currentTotalTime = Math.round(currentTotalTime);
     var tmpe = Math.round(document.getElementById("current_music").currentTime);
     if(tmpe >= 3600) {
       tmpe = Math.floor(tmpe / 3600) + ":" + ((Math.floor(tmpe / 60) % 60 < 10) ? ("0" + Math.floor(tmpe / 60) % 60):(Math.floor(tmpe / 60) % 60)) + ":" + ((tmpe % 60 < 10) ? ("0" + tmpe % 60):(tmpe % 60));
