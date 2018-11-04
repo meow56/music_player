@@ -26,6 +26,7 @@ var title = [];
 var artist = [];
 var album = [];
 var year = [];
+var time = [];
 
 var fileElem = document.getElementById("file_elem"); // the original, invisible file picker
 
@@ -42,7 +43,7 @@ function random(min, max) {
 
 function playMusic(skipForwardBypass) {
   if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
-    musicLength(0, 0); // index, running total
+    musicLength(0); // index
     
     while(document.getElementById("music_list").firstChild !== null) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild); // remove them all
@@ -107,7 +108,15 @@ function playMusic(skipForwardBypass) {
               playMusic(true);
             }
           }
+          if(currentIndex > temp3) {
+            currentIndex--;
+          }
           music.splice(temp3, 1);
+          time.splice(temp3, 1);
+          title.splice(temp3, 1);
+          artist.splice(temp3, 1);
+          album.splice(temp3, 1);
+          year.splice(temp3, 1);
         }
         temp7.style.background = "#FF0000";
         temp7.style.border = "none";
@@ -225,8 +234,6 @@ function playMusic(skipForwardBypass) {
   
   if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) {
     if(document.getElementById("current_music").ended || skipForwardBypass) {
-      currentTotalTime = previousTotalTime + document.getElementById("current_music").duration;
-      previousTotalTime += document.getElementById("current_music").duration;
       inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length >= music.length && !inThePast && loop !== 0) {
         musicPlayed = [];
@@ -325,7 +332,7 @@ function playMusic(skipForwardBypass) {
 playMusic(false);
 updateThings();
 
-function musicLength(index, temp3) {
+function musicLength(index) {
   var temp = document.createElement("AUDIO");
   temp.id = "det_len";
   temp.autoplay = "true";
@@ -337,18 +344,17 @@ function musicLength(index, temp3) {
   }
   document.getElementById("temp_store").appendChild(temp);
   if(index < music.length) {
-    setTimeout(determineLength, 10, index, temp3);
+    setTimeout(determineLength, 10, index);
   }
 }
 
-function determineLength(index, temp3) {
+function determineLength(index) {
   if(Number.isNaN(document.getElementById("det_len").duration)) {
-    setTimeout(determineLength, 10, index, temp3);
+    setTimeout(determineLength, 10, index);
   } else {
-    temp3 += document.getElementById("det_len").duration;
+    time[index] = document.getElementById("det_len").duration;
     document.getElementById("temp_store").removeChild(document.getElementById("det_len"));
-    totalTime = Math.round(temp3);
-    musicLength(index + 1, temp3);
+    musicLength(index + 1);
   }
 }
 
@@ -416,18 +422,22 @@ function playPause() {
 
 function updateThings() {
   frameIndex++
-    /*
-  if(Number.isNaN(totalTime) && frameIndex % 600 === 0) {
-    while(document.getElementById("temp_store").firstChild !== null) {
-      document.getElementById("temp_store").removeChild(document.getElementById("temp_store").firstChild);
-    }
-    musicLength(0, 0); // if totalTime is NaN, redo!
-  }
-  */
   if(document.getElementById("current_music") !== null) {
     document.getElementById("time_seek").max = document.getElementById("current_music").duration;
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
-    currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
+    totalTime = 0;
+    for(var i = 0; i < time.length; i++) {
+      totalTime += time[i];
+    }
+    currentTotalTime = 0;
+    for(var i = 0; i < musicPlayed.length; i++) {
+      for(var j = 0; j < music.length; j++) {
+        if(musicPlayed[i] === music[j]) {
+          currentTotalTime += time[j];
+        }
+      }
+    }
+    currentTotalTime += document.getElementById("current_music").currentTime;
     var tmpe = Math.round(document.getElementById("current_music").currentTime);
     if(tmpe >= 3600) {
       tmpe = Math.floor(tmpe / 3600) + ":" + ((Math.floor(tmpe / 60) % 60 < 10) ? ("0" + Math.floor(tmpe / 60) % 60):(Math.floor(tmpe / 60) % 60)) + ":" + ((tmpe % 60 < 10) ? ("0" + tmpe % 60):(tmpe % 60));
