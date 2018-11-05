@@ -376,10 +376,22 @@ function actualPlayMusic(musicToPlay) {
   }
   temp.textAlign = "center";
   temp.volume = document.getElementById("volume").value;
-  if(!inThePast && loop !== 1) {
-    musicPlayed.push(musicToPlay);
-    totalMusicPlayed.push(musicToPlay);
+  function endIt(musicToPlay) {
+    if(!inThePast && loop !== 1 && document.getElementById("now_playing") !== null) {
+      var temp = musicToPlay.name.split(".");
+      var temp2 = "Now playing: \"";
+      for(var j = 0; j < temp.length - 1; j++) {
+        temp2 += temp[j];
+      }
+      temp2 += "\"";
+      if(document.getElementById("now_playing").textContent === temp2 && document.getElementById("current_music").ended) {
+        musicPlayed.push(musicToPlay);
+        totalMusicPlayed.push(musicToPlay);
+      }
+    }
+    setTimeout(endIt, 0, musicToPlay);
   }
+  endIt(musicToPlay);
   document.getElementById("hud").appendChild(temp);
   var temp6 = document.createElement("BR");
   temp6.id = "break_hud"
