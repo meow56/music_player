@@ -224,7 +224,7 @@ function playMusic(skipForwardBypass) {
   if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) {
     if(document.getElementById("current_music").ended || skipForwardBypass) {
       musicPlayed.push(currentMusic);
-      totlaMusicPlayed.push(currentMusic);
+      totalMusicPlayed.push(currentMusic);
       inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length >= music.length && !inThePast && loop !== 0) {
         musicPlayed = [];
