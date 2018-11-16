@@ -6,6 +6,7 @@ window.onerror = function(message, source, lineno, colno, error) {
 
 var fileSelect = document.getElementById("file_select"); // the button that takes the place of the file picker
 var music = []; // list of all music
+var currentMusic; // music that is playing
 var musicPlayed = []; // list of music played in current cycle
 var setEve = true; // starter thing for setting an event listener
 var pastMusic = music.slice(); // past music to cut down on music list changes
@@ -98,13 +99,7 @@ function playMusic(skipForwardBypass) {
             }
           }
           if(document.getElementById("current_music") !== null) {
-            var temp = music[temp3].name.split(".");
-            var temp2 = "Now playing: \"";
-            for(var j = 0; j < temp.length - 1; j++) {
-              temp2 += temp[j];
-            }
-            temp2 += "\"";
-            if(temp2 === document.getElementById("now_playing").textContent) {
+            if(music[temp3] === currentMusic) {
               playMusic(true);
             }
           }
@@ -219,13 +214,7 @@ function playMusic(skipForwardBypass) {
     document.addEventListener("keypress", function (e) {
       if(e.key === " ") {
         e.preventDefault();
-        if(document.getElementById("current_music") !== null) {
-          if(document.getElementById("current_music").paused) {
-            document.getElementById("current_music").play();
-          } else {
-            document.getElementById("current_music").pause();
-          }
-        }
+        playPause();
       }
     }, false);
     
@@ -234,6 +223,7 @@ function playMusic(skipForwardBypass) {
   
   if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) {
     if(document.getElementById("current_music").ended || skipForwardBypass) {
+      musicPlayed.push(currentMusic);
       inThePast = (skipBackIndex !== 0);
       if(musicPlayed.length >= music.length && !inThePast && loop !== 0) {
         musicPlayed = [];
@@ -247,17 +237,7 @@ function playMusic(skipForwardBypass) {
         }
       }
       if(loop === 1) {
-        for(var i = 0; i < music.length; i++) {
-          var temp = music[i].name.split(".");
-          var temp2 = "Now playing: \"";
-          for(var j = 0; j < temp.length - 1; j++) {
-            temp2 += temp[j];
-          }
-          temp2 += "\"";
-          if(temp2 === document.getElementById("now_playing").textContent) {
-            var musicToPlay = music[i];
-          }
-        }
+        musicToPlay = currentMusic;
       } else if(skipBackIndex !== 0) {
         skipBackIndex++;
         var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
@@ -294,17 +274,7 @@ function playMusic(skipForwardBypass) {
         }
       }
       if(loop === 1) {
-        for(var i = 0; i < music.length; i++) {
-          var temp = music[i].name.split(".");
-          var temp2 = "Now playing: \"";
-          for(var j = 0; j < temp.length - 1; j++) {
-            temp2 += temp[j];
-          }
-          temp2 += "\"";
-          if(temp2 === document.getElementById("now_playing").textContent) {
-            var musicToPlay = music[i];
-          }
-        }
+        musicToPlay = currentMusic;
       } else if(skipBackIndex !== 0) {
         skipBackIndex++;
         var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
@@ -414,6 +384,7 @@ function actualPlayMusic(musicToPlay) {
   }
   document.getElementById("hud").appendChild(temp5);
   document.getElementById("time_seek").min = 0;
+  currentMusic = musicToPlay;
 }
 
 function playPause() {
@@ -567,13 +538,7 @@ function updateMusicList() {
   }
   
   for(var i = 0; i < music.length; i++) {
-    var temp = music[i].name.split(".");
-    var temp2 = "Now playing: \"";
-    for(var j = 0; j < temp.length - 1; j++) {
-      temp2 += temp[j];
-    }
-    temp2 += "\"";
-    if(document.getElementById("now_playing").textContent === temp2) {
+    if(currentMusic === music[i]) {
       currentIndex = i + 1;
     }
   }
