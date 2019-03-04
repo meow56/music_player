@@ -4,6 +4,10 @@ Site: https://meow56.github.io/music_player/
 
 Changelog
 
+**V1.1.2**
+
+*fixed RNG
+
 **V1.1.1**
 
 *fixed total time
