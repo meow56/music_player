@@ -22,6 +22,8 @@ var pastLoop = loop; // change the loop image when loop state changes
 var totalTime = 0; // total length of all music
 var currentTotalTime = 0; // total time of all music played
 var previousTotalTime = 0; // total time of all music finished
+var timeDetermined = false;
+
 var frameIndex = 0;
 var title = [];
 var artist = [];
@@ -37,6 +39,7 @@ function submitFiles() {
     music.push(newFiles[i]);
   }
   totalTime = 0;
+  timeDetermined = false;
   musicLength(0);
 }
 
@@ -325,6 +328,8 @@ function musicLength(index) { // determine the length of a song
   document.getElementById("temp_store").appendChild(tempSong);
   if(index < music.length) {
     setTimeout(determineLength, 50, index);
+  } else {
+    timeDetermined = true;
   }
 }
 
@@ -380,6 +385,9 @@ function actualPlayMusic(musicToPlay) {
           nowPlaying.textContent += nameSplit[j];
         }
         nowPlaying.textContent += "\"";
+      }
+      while(!timeDetermined) {
+        
       }
       document.getElementById("time_seek").max = time[i];
     }
