@@ -337,6 +337,7 @@ function determineLength(index) {
   } else {
     time[index] = document.getElementById("det_len").duration; // set the particular index to be the correct time
     totalTime += document.getElementById("det_len").duration; // add to total time
+    alert(totalTime);
     document.getElementById("temp_store").removeChild(document.getElementById("det_len")); // reset
     musicLength(index + 1); // again!
   }
