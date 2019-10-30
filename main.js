@@ -366,9 +366,9 @@ function actualPlayMusic(musicToPlay) {
   
   
   
-  var temp6 = document.createElement("BR"); // it's the break
-  temp6.id = "break_hud";
-  document.getElementById("hud").appendChild(temp6); // attach to the top
+  var hudBreak = document.createElement("BR"); // it's the break
+  hudBreak.id = "break_hud";
+  document.getElementById("hud").appendChild(hudBreak); // attach to the top
   
   
   
@@ -419,8 +419,8 @@ function updateThings() { // handles time played, etc.
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime; // make sure the slider is accurate
     currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
     currentTotalTime = Math.round(currentTotalTime);
-    var currentTime = formatTime(Math.round(document.getElementById("current_music").currentTime));
-    var currentTotal = formatTime(Math.round(document.getElementById("current_music").duration));
+    var currentTime = formatTime(document.getElementById("current_music").currentTime);
+    var currentTotal = formatTime(document.getElementById("current_music").duration);
     document.getElementById("time_words").innerHTML = currentTime + "/" + currentTotal;
   } else {
     currentTotalTime = previousTotalTime;
@@ -523,6 +523,7 @@ function updateMusicList() { // switches things around to match the front end li
 }
 
 function formatTime(time) {
+    time = Math.round(time);
     if(time >= 3600) {
       return Math.floor(time / 3600) + ":" + ((Math.floor(time / 60) % 60 < 10) ? ("0" + Math.floor(time / 60) % 60):(Math.floor(time / 60) % 60)) + ":" + ((time % 60 < 10) ? ("0" + time % 60):(time % 60));
     } else {
