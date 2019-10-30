@@ -39,8 +39,6 @@ function submitFiles() {
   for(var i = 0; i < newFiles.length; i++) {
     music.push(newFiles[i]);
   }
-  totalTime = 0;
-  musicLength(0);
 }
 
 function random(min, max) {
@@ -49,6 +47,7 @@ function random(min, max) {
 
 function playMusic(skipForwardBypass) { // skipForwardBypass: pretend the song is over; emulates skipping forward.
   if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
+    totalTime = 0;
     musicLength(0); // index
     
     while(document.getElementById("music_list").firstChild !== null) {
