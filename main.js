@@ -23,6 +23,7 @@ var totalTime = 0; // total length of all music
 var currentTotalTime = 0; // total time of all music played
 var previousTotalTime = 0; // total time of all music finished
 var timeDetermined = false;
+var inaccurateMaxTime = false;
 
 var frameIndex = 0;
 var title = [];
@@ -39,7 +40,6 @@ function submitFiles() {
     music.push(newFiles[i]);
   }
   totalTime = 0;
-  timeDetermined = false;
   musicLength(0);
 }
 
@@ -328,8 +328,6 @@ function musicLength(index) { // determine the length of a song
   document.getElementById("temp_store").appendChild(tempSong);
   if(index < music.length) {
     setTimeout(determineLength, 50, index);
-  } else {
-    timeDetermined = true;
   }
 }
 
@@ -386,7 +384,7 @@ function actualPlayMusic(musicToPlay) {
         }
         nowPlaying.textContent += "\"";
       }
-      while(!timeDetermined) {
+      while(musicToPlay.duration === undefined) {
         
       }
       document.getElementById("time_seek").max = time[i];
@@ -416,6 +414,9 @@ function playPause() {
 function updateThings() { // handles time played, etc.
   // frameIndex++
   if(document.getElementById("current_music") !== null) { // if something is playing...
+    if(inaccurateMaxTime) {
+      document.getElementById("time_seek").max = currentMusic.duration;
+    }
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime; // make sure the slider is accurate
     currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
     currentTotalTime = Math.round(currentTotalTime);
