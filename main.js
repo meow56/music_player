@@ -37,7 +37,7 @@ function submitFiles() {
     music.push(newFiles[i]);
   }
   totalTime = 0;
-  determineLength(0);
+  musicLength(0);
 }
 
 function random(min, max) {
