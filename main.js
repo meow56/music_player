@@ -36,13 +36,15 @@ function submitFiles() {
   for(var i = 0; i < newFiles.length; i++) {
     music.push(newFiles[i]);
   }
+  totalTime = 0;
+  determineLength(0);
 }
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function playMusic(skipForwardBypass) {
+function playMusic(skipForwardBypass) { // skipForwardBypass: pretend the song is over; emulates skipping forward.
   if(pastMusic.length !== music.length) { // check for an updated music list, indicating an update to the shown list
     musicLength(0); // index
     
@@ -50,111 +52,117 @@ function playMusic(skipForwardBypass) {
       document.getElementById("music_list").removeChild(document.getElementById("music_list").firstChild); // remove them all
     }
     if(music.length === 0) {
-      var temp = document.createElement("LI");
-      temp.textContent = "Nothing.";
-      document.getElementById("music_list").appendChild(temp);
-    }
-    for(var i = 0; i < music.length; i++) {
-      var temp3 = music[i];
-      if(temp3 !== undefined) { // wait, why do i have this again?
-        var temp6 = document.createElement("LI"); // list head
-        var temp2 = document.createElement("BUTTON"); // button for music select
-        var temp4 = temp3.name.split("."); // split by period
-        for(var j = 0; j < temp4.length - 1; j++) {
-          temp2.textContent += temp4[j]; // add all the text back, but ignore the file type (ie mp3, wav, ogg)
+      var nothingElement = document.createElement("LI");
+      nothingElement.textContent = "Nothing.";
+      document.getElementById("music_list").appendChild(nothingElement);
+    } else {
+      for(var i = 0; i < music.length; i++) {
+        var musicList = document.createElement("LI"); // list head
+        var musicButton = document.createElement("BUTTON"); // button for music select
+        var nameSplit = music[i].name.split("."); // split by period
+        for(var j = 0; j < nameSplit.length - 1; j++) {
+          musicButton.textContent += nameSplit[j]; // add all the text back, but ignore the file type (ie mp3, wav, ogg)
         }
-        temp6.id = "li_" + music[i].name;
-        temp6.draggable = true;
-        temp2.onclick = function () {
+        musicList.id = "li_" + music[i].name; // use music name for id because it is unique
+        musicList.draggable = true;
+        
+        
+        
+        musicButton.onclick = function () { // when you click it, play that song
           for(var i = 0; i < music.length; i++) {
-            var temp = music[i].name.split(".");
-            var temp2 = "";
-            for(var j = 0; j < temp.length - 1; j++) {
-              temp2 += temp[j];
+            var nameSplit = music[i].name.split(".");
+            var nameNoExt = "";
+            for(var j = 0; j < nameSplit.length - 1; j++) {
+              nameNoExt += nameSplit[j]; // get the name but without file extension
             }
-            if(temp2 === this.textContent) {
-              actualPlayMusic(music[i]);
+            if(nameNoExt === this.textContent) {
+              actualPlayMusic(music[i]); // if the song names are the same, play it.
             }
           }
         };
-        temp2.style.background = "rgba(255, 255, 255, 0)";
-        temp2.style.border = "none";
-        temp2.style.width = "95%";
-        temp6.appendChild(temp2);
-        var temp7 = document.createElement("BUTTON");
-        temp7.textContent = "X"
-        temp7.id = "remove_";
-        for(var j = 0; j < temp4.length - 1; j++) {
-          temp7.id += temp4[j];
+        musicList.style.background = "rgba(255, 255, 255, 0)"; // it's transparent
+        musicList.style.border = "none"; // no border
+        musicList.style.width = "95%"; // 95% screen with
+        musicList.appendChild(musicButton); // musicList <- musicButton
+        
+        
+        
+        var deleteButton = document.createElement("BUTTON"); // delete the music from the list
+        deleteButton.textContent = "X";
+        deleteButton.id = "remove_";
+        for(var j = 0; j < nameSplit.length - 1; j++) {
+          deleteButton.id += nameSplit[j];
         }
-        temp7.onclick = function() {
+        deleteButton.onclick = function() {
           for(var i = 0; i < music.length; i++) {
-            var temp = music[i].name.split(".");
-            var temp2 = "remove_";
-            for(var j = 0; j < temp.length - 1; j++) {
-              temp2 += temp[j];
+            var nameSplit = music[i].name.split(".");
+            var nameNoExt = "remove_";
+            for(var j = 0; j < nameSplit.length - 1; j++) {
+              nameNoExt += nameSplit[j];
             }
-            if(temp2 === this.id) {
-              var temp3 = i;
-            }
-          }
-          if(document.getElementById("current_music") !== null) {
-            if(music[temp3] === currentMusic) {
-              playMusic(true);
+            if(nameNoExt === this.id) {
+              var musicID = i;
             }
           }
-          if(currentIndex > temp3) {
-            currentIndex--;
+          if(document.getElementById("current_music") !== null) { // so long as something is playing...
+            if(music[musicID] === currentMusic) { // if the music being deleted is the song playing...
+              playMusic(true); // skip the song so we can delete it safely.
+            }
           }
-          music.splice(temp3, 1);
-          time.splice(temp3, 1);
-          title.splice(temp3, 1);
-          artist.splice(temp3, 1);
-          album.splice(temp3, 1);
-          year.splice(temp3, 1);
+          if(currentIndex > musicID) { // if the index of the current song is greater than the song being deleted...
+            currentIndex--; // subtract to make sure the index matches up with the current song.
+          }
+          music.splice(musicID, 1); // delete it! from everywhere.
+          time.splice(musicID, 1);
+          title.splice(musicID, 1);
+          artist.splice(musicID, 1);
+          album.splice(musicID, 1);
+          year.splice(musicID, 1);
         }
-        temp7.style.background = "#FF0000";
-        temp7.style.border = "none";
-        temp7.style.float = "right";
-        temp7.style.color = "#250000";
-        temp7.style.width = "5%";
-        temp6.appendChild(temp7);
-        var temp8 = document.createElement("DIV"); // div for dragging stuff
-        temp8.ondragover = function(event) {
+        deleteButton.style.background = "#FF0000"; // it's pure red
+        deleteButton.style.border = "none"; // no border
+        deleteButton.style.float = "right"; // on the right
+        deleteButton.style.color = "#250000"; // text is dark red
+        deleteButton.style.width = "5%"; // 5% of screen width
+        musicList.appendChild(deleteButton); // musicList <<-- deleteButton, musicButton
+        
+        
+        
+        var dragDiv = document.createElement("DIV"); // div for dragging stuff, in between 'musicList's
+        dragDiv.ondragover = function(event) {
           event.preventDefault();
-          this.style.background = "#000";
+          this.style.background = "#000"; // background is pure black
         };
-        temp8.ondrop = function(event) {
+        dragDiv.ondrop = function(event) {
           event.preventDefault();
-          this.style.background = "rgba(255, 255, 255, 0)";
-          var temp = "div_";
-          var temp2 = dragged.id;
-          for(var i = 3; i < temp2.length; i++) {
-            temp += temp2[i];
+          this.style.background = "rgba(255, 255, 255, 0)"; // it's transparent again
+          var divID = "div_";
+          for(var i = 3; i < dragged.id.length; i++) { // interpreting as a string, cut off "li_" and add to divID
+            divID += dragged.id[i];
           }
-          if(document.getElementById(temp) !== this) {
-            document.getElementById("music_list").insertBefore(document.getElementById(temp), this);
-            document.getElementById("music_list").insertBefore(dragged, this);
+          if(document.getElementById(divID) !== this) { // so long as you didn't just move musicList to the same place...
+            document.getElementById("music_list").insertBefore(document.getElementById(divID), this); // move the dragDiv over here
+            document.getElementById("music_list").insertBefore(dragged, this); // move the musicList over here
           }
-          updateMusicList();
+          updateMusicList(); // make sure the array matches, make sure there aren't any doubled dragDivs
         };
-        temp8.ondragleave = function(event) {
+        dragDiv.ondragleave = function(event) {
           event.preventDefault();
-          this.style.background = "rgba(255, 255, 255, 0)";
+          this.style.background = "rgba(255, 255, 255, 0)"; // it's transparent again
         };
-        temp8.id = "div_" + music[i].name;
-        temp8.style.height = "5px";
-        temp8.style.width = "100%";
-        document.getElementById("music_list").appendChild(temp8);
-        document.getElementById("music_list").appendChild(temp6);
+        dragDiv.id = "div_" + music[i].name;
+        dragDiv.style.height = "5px"; // 5 pixels wide
+        dragDiv.style.width = "100%"; // completely wide
+        document.getElementById("music_list").appendChild(dragDiv); // ... dD mL dD
+        document.getElementById("music_list").appendChild(musicList); // ... dD mL dD mL
       }
     }
-    var temp8 = document.createElement("DIV"); // the last div, cuz divs appear above songs and otherwise there wouldn't be one at the end
-    temp8.ondragover = function(event) {
+    var dragDiv = document.createElement("DIV"); // dragDiv for the very end of the list
+    dragDiv.ondragover = function(event) {
       event.preventDefault();
       this.style.background = "#000";
     };
-    temp8.ondrop = function(event) {
+    dragDiv.ondrop = function(event) {
       event.preventDefault();
       this.style.background = "rgba(255, 255, 255, 0)";
       var temp = "div_";
@@ -168,20 +176,20 @@ function playMusic(skipForwardBypass) {
       }
       updateMusicList();
     };
-    temp8.ondragleave = function(event) {
+    dragDiv.ondragleave = function(event) {
       event.preventDefault();
       this.style.background = "rgba(255, 255, 255, 0)";
     };
-    temp8.id = "final_div";
-    temp8.style.height = "5px";
-    temp8.style.width = "100%";
-    document.getElementById("music_list").appendChild(temp8);
-    pastMusic = music.slice();
+    dragDiv.id = "final_div";
+    dragDiv.style.height = "5px";
+    dragDiv.style.width = "100%";
+    document.getElementById("music_list").appendChild(dragDiv);
+    pastMusic = music.slice(); // copy music to pastMusic
   }
   
   
   
-  if(setEve) {
+  if(setEve) { // one-time check to add an event listener. Needs to be in here, otherwise the html document isn't correctly loaded
     fileElem.addEventListener("click", function (e) {
       if (fileSelect) {
         fileSelect.click();
@@ -214,67 +222,72 @@ function playMusic(skipForwardBypass) {
     document.addEventListener("keypress", function (e) {
       if(e.key === " ") {
         e.preventDefault();
-        playPause();
+        playPause(); // if you press space, it plays or pauses the song; keyboard shortcut
       }
     }, false);
     
-    setEve = false;
+    setEve = false; // don't keep initializing event listeners.
   }
   
-  if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) {
-    if(document.getElementById("current_music").ended || skipForwardBypass) {
-      musicPlayed.push(currentMusic);
-      totalMusicPlayed.push(currentMusic);
-      inThePast = (skipBackIndex !== 0);
-      if(musicPlayed.length >= music.length && !inThePast && loop !== 0) {
-        musicPlayed = [];
+  if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length !== 0) { // if something is playing and the songlist isn't empty...
+    if(document.getElementById("current_music").ended || skipForwardBypass) { // if the song has ended or bypass...
+      musicPlayed.push(currentMusic); // the song has been played
+      totalMusicPlayed.push(currentMusic); // the song has been played, permanently
+      if(loop !== 1) {
+        previousTotalTime += currentMusic.length; // add its length as long as we aren't looping the same song over and over again
       }
-      var musicTemp = music.slice();
+      
+      
+      inThePast = (skipBackIndex !== 0); // are we in the past? that is to say, is skipBackIndex not equal to 0?
+      if(musicPlayed.length >= music.length && !inThePast && loop !== 0) { // if you've played more music than there are songs, you've reached the end
+        musicPlayed = []; // reset musicPlayed for the next loop
+      }
+      var musicTemp = music.slice(); // copy music
       for(var i = 0; i < musicPlayed.length; i++) {
         for(var j = 0; j < musicTemp.length; j++) {
           if(musicPlayed[i] === musicTemp[j]) {
-            musicTemp.splice(j, 1);
+            musicTemp.splice(j, 1); // remove anything that has already been played
           }
         }
       }
       if(loop === 1) {
-        musicToPlay = currentMusic;
+        musicToPlay = currentMusic; // if we're looping the same song, just keep playing the same song.
       } else if(skipBackIndex !== 0) {
-        skipBackIndex++;
+        skipBackIndex++; // if we're in the past, move forward.
         var musicToPlay = totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex];
       } else if(shuffle) {
-        currentIndex = random(0, musicTemp.length - 1);
+        currentIndex = random(0, musicTemp.length - 1); // if we're randomizing order, randomize!
         var musicToPlay = musicTemp[currentIndex];
       } else {
-        if(currentIndex < music.length) {
+        if(currentIndex < music.length) { // if we haven't reached the end, increase index.
           var musicToPlay = music[currentIndex++];
         }
-        if(currentIndex >= music.length && loop !== 0) {
+        if(currentIndex >= music.length && loop !== 0) { // if it's greater, reset!
           currentIndex = 0;
         }
       }
-      if(loop !== 0 || musicPlayed.length < music.length || inThePast) {
-        actualPlayMusic(musicToPlay);
+      if(loop !== 0 || musicPlayed.length < music.length || inThePast) { // if we're looping or we haven't finished or we're in the past
+        actualPlayMusic(musicToPlay); // play music
       }
-      setTimeout(playMusic, 0, false);
-    } else {
-      setTimeout(playMusic, 0, false);
+      setTimeout(playMusic, 0, false); // rerun this function asap
+    } else { // if not ended or bypass...
+      setTimeout(playMusic, 0, false); // rerun this function asap
     }
-  } else if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length === 0) {
+  } else if((document.getElementById("current_music") !== null || skipForwardBypass) && music.length === 0) { // if we've removed all the songs...
     document.getElementById("hud").removeChild(document.getElementById("current_music"));
-    document.getElementById("hud").removeChild(document.getElementById("break_hud"));
+    document.getElementById("hud").removeChild(document.getElementById("break_hud")); // delete everything because there's nothing to play.
     document.getElementById("hud").removeChild(document.getElementById("now_playing"));
-  } else {
-    if(music.length !== 0) {
-      var musicTemp = music.slice();
+  } else { // otherwise nothing is playing right now...
+    if(music.length !== 0) { // so long as there is music...
+      var musicTemp = music.slice(); // copy music list
       for(var i = 0; i < musicPlayed.length; i++) {
         for(var j = 0; j < musicTemp.length; j++) {
           if(musicPlayed[i] === musicTemp[j]) {
-            musicTemp.splice(j, 1);
+            musicTemp.splice(j, 1); // remove already played music
           }
         }
       }
-      if(loop === 1) {
+      if(loop === 1) { // same as above...
         musicToPlay = currentMusic;
       } else if(skipBackIndex !== 0) {
         skipBackIndex++;
@@ -283,19 +296,15 @@ function playMusic(skipForwardBypass) {
         currentIndex = random(0, musicTemp.length - 1);
         var musicToPlay = musicTemp[currentIndex];
       } else {
-        if(loop === 1) {
-          var musicToPlay = music[currentIndex];
-        } else {
-          var musicToPlay = music[currentIndex++];
-        }
+        var musicToPlay = music[currentIndex++];
         if(currentIndex >= music.length && loop !== 0) {
           currentIndex = 0;
         }
       }
       actualPlayMusic(musicToPlay);
-      setTimeout(playMusic, 0, false);
+      setTimeout(playMusic, 0, false); // rerun this function asap
     } else {
-      setTimeout(playMusic, 0, false);
+      setTimeout(playMusic, 0, false); // rerun this function asap
     }
   }
 }
@@ -303,83 +312,91 @@ function playMusic(skipForwardBypass) {
 playMusic(false);
 updateThings();
 
-function musicLength(index) {
-  var temp = document.createElement("AUDIO");
-  temp.id = "det_len";
-  temp.autoplay = "true";
-  temp.volume = 0;
+function musicLength(index) { // determine the length of a song
+  var tempSong = document.createElement("AUDIO");
+  tempSong.id = "det_len";
+  tempSong.autoplay = "true";
+  tempSong.volume = 0;
   try {
-    temp.srcObject = music[index];
+    tempSong.srcObject = music[index];
   } catch (error) {
-    temp.src = URL.createObjectURL(music[index]);
+    tempSong.src = URL.createObjectURL(music[index]);
   }
-  document.getElementById("temp_store").appendChild(temp);
+  document.getElementById("temp_store").appendChild(tempSong);
   if(index < music.length) {
-    setTimeout(determineLength, 10, index);
+    setTimeout(determineLength, 50, index);
   }
 }
 
 function determineLength(index) {
   if(Number.isNaN(document.getElementById("det_len").duration)) {
-    setTimeout(determineLength, 10, index);
+    setTimeout(determineLength, 100, index); // if it's still processing, wait a while.
   } else {
-    time[index] = document.getElementById("det_len").duration;
-    document.getElementById("temp_store").removeChild(document.getElementById("det_len"));
-    musicLength(index + 1);
+    time[index] = document.getElementById("det_len").duration; // set the particular index to be the correct time
+    totalTime += document.getElementById("det_len").duration; // add to total time
+    document.getElementById("temp_store").removeChild(document.getElementById("det_len")); // reset
+    musicLength(index + 1); // again!
   }
 }
 
 function actualPlayMusic(musicToPlay) {
-  if(document.getElementById("current_music") !== null) {
-    document.getElementById("hud").removeChild(document.getElementById("current_music"));
+  if(document.getElementById("current_music") !== null) { // if something is playing
+    document.getElementById("hud").removeChild(document.getElementById("current_music")); // remove it all
     document.getElementById("hud").removeChild(document.getElementById("break_hud"));
     document.getElementById("hud").removeChild(document.getElementById("now_playing"));
   }
-  var temp = document.createElement("AUDIO");
+  var newMusic = document.createElement("AUDIO"); // the new music
   try {
-    temp.srcObject = musicToPlay;
+    newMusic.srcObject = musicToPlay;
   } catch (error) {
-    temp.src = URL.createObjectURL(musicToPlay);
+    newMusic.src = URL.createObjectURL(musicToPlay);
   }
-  temp.id = "current_music";
-  if(!pauseded) {
-    temp.autoplay = "true";
+  newMusic.id = "current_music";
+  if(!pauseded) { // are we paused?
+    newMusic.autoplay = "true"; // if not, play automatically
   }
-  temp.textAlign = "center";
-  temp.volume = document.getElementById("volume").value;
-  document.getElementById("hud").appendChild(temp);
-  var temp6 = document.createElement("BR");
-  temp6.id = "break_hud"
-  document.getElementById("hud").appendChild(temp6);
-  var temp5 = document.createElement("PARAGRAPH");
-  temp5.id = "now_playing";
+  newMusic.textAlign = "center"; // right in the middle
+  newMusic.volume = document.getElementById("volume").value; // set volume as user specifies
+  document.getElementById("hud").appendChild(newMusic); // attach to the top
+  
+  
+  
+  var temp6 = document.createElement("BR"); // it's the break
+  temp6.id = "break_hud";
+  document.getElementById("hud").appendChild(temp6); // attach to the top
+  
+  
+  
+  var nowPlaying = document.createElement("PARAGRAPH"); // it's the title of the song
+  nowPlaying.id = "now_playing";
   for(var i = 0; i < music.length; i++) {
     if(music[i].name === musicToPlay.name) {
-      if(title[i] !== undefined) {
-        temp5.textContent = "Now playing: \"" + title[i] + "\"";
-      } else {
-        var temp409 = musicToPlay.name.split(".");
-        temp5.textContent = "Now playing: \"";
-        for(var j = 0; j < temp409.length - 1; j++) {
-          temp5.textContent += temp409[j];
+      if(title[i] !== undefined) { // if it exists, use the title specified by tags
+        nowPlaying.textContent = "Now playing: \"" + title[i] + "\"";
+      } else { // otherwise, just use the filename minus the extension
+        var nameSplit = musicToPlay.name.split(".");
+        nowPlaying.textContent = "Now playing: \"";
+        for(var j = 0; j < nameSplit.length - 1; j++) {
+          nowPlaying.textContent += nameSplit[j];
         }
-        temp5.textContent += "\"";
+        nowPlaying.textContent += "\"";
       }
+      document.getElementById("time_seek").max = time[i];
     }
   }
-  document.getElementById("hud").appendChild(temp5);
-  document.getElementById("time_seek").min = 0;
-  currentMusic = musicToPlay;
+  document.getElementById("hud").appendChild(nowPlaying);
+  document.getElementById("time_seek").min = 0; // reset the slider to the beginning
+  currentMusic = musicToPlay; // make sure we know what song we're playing
 }
 
 function playPause() {
-  if(document.getElementById("current_music") !== null) {
-    if(document.getElementById("current_music").paused) {
+  if(document.getElementById("current_music") !== null) { // if something is playing...
+    if(document.getElementById("current_music").paused) { // if it's paused, unpause
       pauseded = false;
       document.getElementById("current_music").play();
       document.getElementById("pause_image").style.display = "initial";
       document.getElementById("play_image").style.display = "none";
-    } else {
+    } else { // otherwise, pause
       pauseded = true;
       document.getElementById("current_music").pause();
       document.getElementById("pause_image").style.display = "none";
@@ -388,54 +405,23 @@ function playPause() {
   }
 }
 
-function updateThings() {
-  frameIndex++
-  if(document.getElementById("current_music") !== null) {
-    document.getElementById("time_seek").max = document.getElementById("current_music").duration;
-    document.getElementById("time_seek").value = document.getElementById("current_music").currentTime;
-    totalTime = 0;
-    for(var i = 0; i < time.length; i++) {
-      totalTime += time[i];
-    }
-    totalTime = Math.floor(totalTime);
-    currentTotalTime = 0;
-    for(var i = 0; i < musicPlayed.length; i++) {
-      for(var j = 0; j < music.length; j++) {
-        if(musicPlayed[i] === music[j]) {
-          currentTotalTime += time[j];
-        }
-      }
-    }
-    currentTotalTime += document.getElementById("current_music").currentTime;
+function updateThings() { // handles time played, etc.
+  // frameIndex++
+  if(document.getElementById("current_music") !== null) { // if something is playing...
+    document.getElementById("time_seek").value = document.getElementById("current_music").currentTime; // make sure the slider is accurate
+    currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
     currentTotalTime = Math.round(currentTotalTime);
-    var tmpe = Math.round(document.getElementById("current_music").currentTime);
-    if(tmpe >= 3600) {
-      tmpe = Math.floor(tmpe / 3600) + ":" + ((Math.floor(tmpe / 60) % 60 < 10) ? ("0" + Math.floor(tmpe / 60) % 60):(Math.floor(tmpe / 60) % 60)) + ":" + ((tmpe % 60 < 10) ? ("0" + tmpe % 60):(tmpe % 60));
-    } else {
-      tmpe = ((Math.floor(tmpe / 60) % 60 < 10) ? ("0" + Math.floor(tmpe / 60) % 60):(Math.floor(tmpe / 60) % 60)) + ":" + ((tmpe % 60 < 10) ? ("0" + tmpe % 60):(tmpe % 60));
-    }
-    var tmep = Math.round(document.getElementById("current_music").duration);
-    if(tmep >= 3600) {
-      tmep = Math.floor(tmep / 3600) + ":" + ((Math.floor(tmep / 60) % 60 < 10) ? ("0" + Math.floor(tmep / 60) % 60):(Math.floor(tmep / 60) % 60)) + ":" + ((tmep % 60 < 10) ? ("0" + tmep % 60):(tmep % 60));
-    } else {
-      tmep = ((Math.floor(tmep / 60) % 60 < 10) ? ("0" + Math.floor(tmep / 60) % 60):(Math.floor(tmep / 60) % 60)) + ":" + ((tmep % 60 < 10) ? ("0" + tmep % 60):(tmep % 60));
-    }
-    document.getElementById("time_words").innerHTML = tmpe + "/" + tmep;
-  }
-  var temp = Math.round(currentTotalTime);
-  if(temp >= 3600) {
-    var temp2 = Math.floor(temp / 3600) + ":" + ((Math.floor(temp / 60) % 60 < 10) ? ("0" + Math.floor(temp / 60) % 60):(Math.floor(temp / 60) % 60)) + ":" + ((temp % 60 < 10) ? ("0" + temp % 60):(temp % 60));
+    var currentTime = formatTime(Math.round(document.getElementById("current_music").currentTime));
+    var currentTotal = formatTime(Math.round(document.getElementById("current_music").duration));
+    document.getElementById("time_words").innerHTML = currentTime + "/" + currentTotal;
   } else {
-    var temp2 = ((Math.floor(temp / 60) % 60 < 10) ? ("0" + Math.floor(temp / 60) % 60):(Math.floor(temp / 60) % 60)) + ":" + ((temp % 60 < 10) ? ("0" + temp % 60):(temp % 60));
+    currentTotalTime = previousTotalTime;
   }
-  if(totalTime >= 3600) {
-    var temp3 = Math.floor(totalTime / 3600) + ":" + ((Math.floor(totalTime / 60) % 60 < 10) ? ("0" + Math.floor(totalTime / 60) % 60):(Math.floor(totalTime / 60) % 60)) + ":" + ((totalTime % 60 < 10) ? ("0" + totalTime % 60):(totalTime % 60));
-  } else {
-    var temp3 = ((Math.floor(totalTime / 60) % 60 < 10) ? ("0" + Math.floor(totalTime / 60) % 60):(Math.floor(totalTime / 60) % 60)) + ":" + ((totalTime % 60 < 10) ? ("0" + totalTime % 60):(totalTime % 60));
-  }
-  document.getElementById("total_time").innerHTML = temp2 + "/" + temp3;
+  var fCurrentTotalTime = formatTime(currentTotalTime);
+  var fTotalTime = formatTime(totalTime);
+  document.getElementById("total_time").innerHTML = fCurrentTotalTime + "/" + fTotalTime;
   
-  if(pastShuffle !== shuffle) {
+  if(pastShuffle !== shuffle) { // if user has changed shuffle settings
     while(document.getElementById("shuffle").firstChild !== null) {
       document.getElementById("shuffle").removeChild(document.getElementById("shuffle").firstChild);
     }
@@ -486,16 +472,15 @@ function updateThings() {
   }
   pastLoop = loop;
   
-  setTimeout(updateThings, 0);
+  setTimeout(updateThings, 100);
 }
 
-function skipBack() {
-  if(totalMusicPlayed.length !== 0) {
-    var temp = totalMusicPlayed.length - 1;
+function skipBack() { // go back in time... if you wanted to hear that song again.
+  if(totalMusicPlayed.length !== 0) { // so long as we can actually go backwards...
     skipBackIndex--;
-    if(totalMusicPlayed[temp + skipBackIndex] !== undefined) {
+    if(totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex] !== undefined) {
       inThePast = true;
-      actualPlayMusic(totalMusicPlayed[temp + skipBackIndex]);
+      actualPlayMusic(totalMusicPlayed[totalMusicPlayed.length - 1 + skipBackIndex]);
     } else {
       skipBackIndex++;
     }
@@ -506,9 +491,9 @@ function skipForward() {
   playMusic(true);
 }
 
-function updateMusicList() {
+function updateMusicList() { // switches things around to match the front end list
   for(var i = 0; i < music.length; i++) {
-    if("li_" + music[i].name !== document.getElementById("music_list").childNodes[(2 * i) + 1].id) { // skip over all the divs
+    if("li_" + music[i].name !== document.getElementById("music_list").childNodes[(2 * i) + 1].id) { // check all the list elements
       for(var j = i + 1; j < music.length; j++) {
         if("li_" + music[j].name === document.getElementById("music_list").childNodes[(2 * i) + 1].id) {
           var temp = music.splice(j, 1);
@@ -528,6 +513,22 @@ function updateMusicList() {
     }
   }
 }
+
+function formatTime(time) {
+    if(time >= 3600) {
+      return Math.floor(time / 3600) + ":" + ((Math.floor(time / 60) % 60 < 10) ? ("0" + Math.floor(time / 60) % 60):(Math.floor(time / 60) % 60)) + ":" + ((time % 60 < 10) ? ("0" + time % 60):(time % 60));
+    } else {
+      return ((Math.floor(time / 60) % 60 < 10) ? ("0" + Math.floor(time / 60) % 60):(Math.floor(time / 60) % 60)) + ":" + ((time % 60 < 10) ? ("0" + time % 60):(time % 60));
+    }  
+}
+
+
+
+
+
+
+
+
 
 document.getElementById("time_seek").oninput = function() {
   if(document.getElementById("current_music") !== null) {
