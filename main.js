@@ -327,13 +327,13 @@ function musicLength(index) { // determine the length of a song
   }
   document.getElementById("temp_store").appendChild(tempSong);
   if(index < music.length) {
-    setTimeout(determineLength, 50, index);
+    setTimeout(determineLength, 100, index);
   }
 }
 
 function determineLength(index) {
   if(Number.isNaN(document.getElementById("det_len").duration)) {
-    setTimeout(determineLength, 100, index); // if it's still processing, wait a while.
+    setTimeout(determineLength, 500, index); // if it's still processing, wait a while.
   } else {
     time[index] = document.getElementById("det_len").duration; // set the particular index to be the correct time
     totalTime += document.getElementById("det_len").duration; // add to total time
