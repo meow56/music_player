@@ -4,6 +4,11 @@ Site: https://meow56.github.io/music_player/
 
 Changelog
 
+**V1.1.3**
+
+*reformatted things, performance fixes?
+
+
 **V1.1.2**
 
 *fixed RNG
