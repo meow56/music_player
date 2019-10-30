@@ -384,10 +384,11 @@ function actualPlayMusic(musicToPlay) {
         }
         nowPlaying.textContent += "\"";
       }
-      while(musicToPlay.duration === undefined) {
-        
+      if(time[i] !== undefined) {
+        document.getElementById("time_seek").max = time[i];
+      } else {
+        inaccurateMaxTime = true;
       }
-      document.getElementById("time_seek").max = time[i];
     }
   }
   document.getElementById("hud").appendChild(nowPlaying);
@@ -415,7 +416,10 @@ function updateThings() { // handles time played, etc.
   // frameIndex++
   if(document.getElementById("current_music") !== null) { // if something is playing...
     if(inaccurateMaxTime) {
-      document.getElementById("time_seek").max = currentMusic.duration;
+      if(currentMusic.duration !== undefined) {
+        document.getElementById("time_seek").max = currentMusic.duration;
+        inaccurateMaxTime = false;
+      }
     }
     document.getElementById("time_seek").value = document.getElementById("current_music").currentTime; // make sure the slider is accurate
     currentTotalTime = previousTotalTime + document.getElementById("current_music").currentTime;
