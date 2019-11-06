@@ -69,7 +69,7 @@ function playMusic(skipForwardBypass) { // skipForwardBypass: pretend the song i
         musicList.draggable = true;
         
         
-        
+        musicButton.textAlign = "center";
         musicButton.onclick = function () { // when you click it, play that song
           for(var i = 0; i < music.length; i++) {
             var nameSplit = music[i].name.split(".");
@@ -336,7 +336,6 @@ function determineLength(index) {
   } else {
     time[index] = document.getElementById("det_len").duration; // set the particular index to be the correct time
     totalTime += document.getElementById("det_len").duration; // add to total time
-    alert(totalTime);
     document.getElementById("temp_store").removeChild(document.getElementById("det_len")); // reset
     musicLength(index + 1); // again!
   }
