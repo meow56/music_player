@@ -236,7 +236,7 @@ function playMusic(skipForwardBypass) { // skipForwardBypass: pretend the song i
       musicPlayed.push(currentMusic); // the song has been played
       totalMusicPlayed.push(currentMusic); // the song has been played, permanently
       if(loop !== 1) {
-        previousTotalTime += currentMusic.length; // add its length as long as we aren't looping the same song over and over again
+        previousTotalTime += document.getElementById("current_music").duration; // add its length as long as we aren't looping the same song over and over again
       }
       
       
